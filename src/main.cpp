@@ -1,9 +1,19 @@
 #include <Arduino.h>
 
-void setup() {
-  // put your setup code here, to run once:
+#include <stateMachine.h>
+#include <lights.h>
+
+Lights::LightManager *lightManager = new Lights::LightManager();
+
+StateMachine::StateManager *stateManager = new StateMachine::StateManager();
+
+void setup()
+{
+  lightManager->setup();
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
+void loop()
+{
+  stateManager->poll();
+  lightManager->poll();
 }
