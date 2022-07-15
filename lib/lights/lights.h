@@ -7,7 +7,7 @@
 #include <stateMachine.h>
 #include <stateData.h>
 
-namespace Lights
+namespace lights
 {
     class LightManager; // forward-declared
 
@@ -56,14 +56,14 @@ namespace Lights
          * @see LightState
          * @param newState
          */
-        void setLightState(Lights::Light::LightState newState);
+        void setLightState(Light::LightState newState);
 
         /**
          * Get the state of the light.
          *
          * @return Lights::Light::LightState
          */
-        Lights::Light::LightState getLightState();
+        Light::LightState getLightState();
 
     private:
         int pin;              // physical pin for Arduino use
@@ -115,6 +115,9 @@ namespace Lights
                     // of the length of the enum.
         };
         Light *lights[EnumLights::_LENGTH];        // Array of light objects to manage
+
+        //state-specific light control subroutines
+
         void blink(uint16_t period, Light *light); // Make a light blink
         void beOn(Light *light);                   // Make a light be.. on
         void beOff(Light *light);                  // Make a light be off
