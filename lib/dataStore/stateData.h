@@ -1,6 +1,8 @@
 #ifndef STATE_DATA_H
 #define STATE_DATA_H
 
+#include <stdint.h>
+
 // kinda gross but neccesary, AFAIK, forward declaration.
 namespace StateMachine{
     enum class StateEnum;
@@ -16,6 +18,9 @@ namespace StateData{
     // so that it can 'exist' without including stateMachine.h, which is not 
     // possible to include for fun circular dependancy reasons.
     extern StateMachine::StateEnum* state;
+
+    extern int8_t driveSpeed;
+    extern int8_t driveSteer;
 }
 
 

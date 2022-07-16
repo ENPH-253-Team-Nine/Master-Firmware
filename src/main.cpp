@@ -24,8 +24,8 @@ void loop()
   motorManager->poll();
 
   if(*StateData::state == StateMachine::StateEnum::Error){
-    motorManager->setSpeed(-64);
+    StateData::driveSpeed = -64;
   } else {
-    motorManager->setSpeed(64);
+    StateData::driveSpeed = 64;
   }
 }

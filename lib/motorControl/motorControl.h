@@ -4,6 +4,8 @@
 #include <Arduino.h>
 #include <limits.h>
 
+#include <stateData.h>
+
 namespace motors
 {
     class MotorManager; // forward declared
@@ -47,9 +49,6 @@ namespace motors
         void poll();
         void setup();
 
-        void setSteer(int8_t steer); //positive is right
-        void setSpeed(int8_t speed);
-
     private:
         enum EnumMotors
         {
@@ -57,10 +56,6 @@ namespace motors
             DRIVE_RIGHT,
             _LENGTH
         };
-
-        int8_t steer;
-
-        int8_t speed;
 
         DriveMotor *motors[EnumMotors::_LENGTH];
 

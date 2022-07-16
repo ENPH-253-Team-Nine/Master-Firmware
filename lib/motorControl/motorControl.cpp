@@ -62,8 +62,6 @@ void DriveMotor::updatePWMs(){
 MotorManager::MotorManager(){
     motors[DRIVE_LEFT] = new DriveMotor(PA_0, PA_1);
     motors[DRIVE_RIGHT] = new DriveMotor(PA_2, PA_3);
-    steer = 0;
-    speed = 0;
 }
 
 MotorManager::~MotorManager(){
@@ -78,27 +76,19 @@ void MotorManager::setup(){
     }
 }
 
-void MotorManager::setSteer(int8_t steer){
-    this->steer = steer;
-}
-
-void MotorManager::setSpeed(int8_t speed){
-    this->speed = speed;
-}
-
 void MotorManager::poll(){
 
     int8_t rightSpeed, leftSpeed;
     
-    if(speed+steer > INT8_MAX){
+    if(StateData::driveSpeed+StateData::driveSteer > INT8_MAX){
         leftSpeed = INT8_MAX;
-        rightSpeed = INT8_MAX-2*steer;
-    } else if(speed+steer < INT8_MIN){
+        rightSpeed = INT8_MAX-2*StateData::driveSteer;
+    } else if(StateData::driveSpeed+StateData::driveSteer < INT8_MIN){
         rightSpeed = INT8_MAX;
-        leftSpeed = INT8_MAX-2*steer;
+        leftSpeed = INT8_MAX-2*StateData::driveSteer;
     } else {
-        leftSpeed = speed+steer;
-        rightSpeed = speed - steer;
+        leftSpeed = StateData::driveSpeed+StateData::driveSteer;
+        rightSpeed = StateData::driveSpeed - StateData::driveSteer;
     }
 
     if(rightSpeed >= 0){
