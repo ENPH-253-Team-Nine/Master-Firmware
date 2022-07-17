@@ -18,3 +18,5 @@ double StateData::magnets::clawHall;
 
 int StateData::encoders::leftEncoderCount;
 int StateData::encoders::rightEncoderCount;
+uint8_t armServoPos;
+uint8_t clawServoPos;   
