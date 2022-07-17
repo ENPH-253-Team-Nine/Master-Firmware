@@ -21,6 +21,9 @@ namespace StateData{
 
     extern int8_t driveSpeed;
     extern int8_t driveSteer;
+
+    extern uint8_t elbowServoPos;
+    extern uint8_t clawServoPos;
 }
 
 
