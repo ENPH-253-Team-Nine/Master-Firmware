@@ -9,6 +9,7 @@ namespace bridge
     class BridgeManager
     {
     public:
+        //just using the default implicit constructor
         void poll();
 
     private:

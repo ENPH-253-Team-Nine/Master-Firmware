@@ -6,6 +6,8 @@
 #include <stateData.h>
 #include <trajectoryPlanning.h>
 #include <sensors.h>
+#include <bridge.h>
+#include <arm.h>
 
 long int lastrun;
 
@@ -19,6 +21,10 @@ motors::MotorManager *motorManager = new motors::MotorManager();
 trajectory::TrajectoryManager *trajectoryManager = new trajectory::TrajectoryManager();
 
 sensors::SensorManager *sensorManager = new sensors::SensorManager();
+
+bridge::BridgeManager *bridgeManager = new bridge::BridgeManager();
+
+arm::ArmManager *armManager = new arm::ArmManager();
 
 void setup()
 {
@@ -37,6 +43,9 @@ void loop()
   lightManager->poll();
   motorManager->poll();
   trajectoryManager->poll();
+  bridgeManager->poll();
+  armManager->poll();
+
   
   // below code good for testing motor control. Will be removed in a PR or two.
   /*if(*StateData::state == StateMachine::StateEnum::Error){
