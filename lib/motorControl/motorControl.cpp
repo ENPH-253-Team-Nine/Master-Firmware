@@ -30,30 +30,29 @@ uint8_t DriveMotor::getSpeed(){
     return speed;
 }
 
-int DriveMotor::toPWM(uint8_t speed){
-    //I think this needs some work
-    return static_cast<int>(static_cast<double>(speed)/INT8_MAX*4096);
+uint8_t DriveMotor::toPWM(uint8_t speed){
+    return speed;
 }
 
 void DriveMotor::updatePWMs(){
-    uint16_t newForwardPinValue;
-    uint16_t newReversePinValue;
+    uint8_t newForwardPinValue;
+    uint8_t newReversePinValue;
 
     switch(direction){
         case DriveMotor::Direction::FORWARD:
-            newForwardPinValue = toPWM(static_cast<uint8_t>(speed));
+            newForwardPinValue = toPWM(speed);
             newReversePinValue = 0;
             break;
         case DriveMotor::Direction::BACKWARD:
             newForwardPinValue = 0;
-            newReversePinValue = toPWM(static_cast<uint8_t>(speed));
+            newReversePinValue = toPWM(speed);
             break;
     }
     if(forwardPinValue != newForwardPinValue || reversePinValue != newReversePinValue){
         forwardPinValue = newForwardPinValue;
         reversePinValue = newReversePinValue;
-        pwm_start(forwardPin, PWMFreq, forwardPinValue, RESOLUTION_12B_COMPARE_FORMAT); //what does this resolution_ thing mean?
-        pwm_start(reversePin, PWMFreq, reversePinValue, RESOLUTION_12B_COMPARE_FORMAT);
+        pwm_start(forwardPin, PWMFreq, forwardPinValue, RESOLUTION_7B_COMPARE_FORMAT);
+        pwm_start(reversePin, PWMFreq, reversePinValue, RESOLUTION_7B_COMPARE_FORMAT);
     }
 }
 

@@ -35,10 +35,10 @@ namespace motors
         PinName reversePin;
         uint8_t speed;
         Direction direction;
-        int toPWM(uint8_t speed);
+        uint8_t toPWM(uint8_t speed);
         static constexpr uint32_t PWMFreq = 1000; //units?
-        uint16_t forwardPinValue;
-        uint16_t reversePinValue;
+        uint8_t forwardPinValue;
+        uint8_t reversePinValue;
     };
 
     class MotorManager
