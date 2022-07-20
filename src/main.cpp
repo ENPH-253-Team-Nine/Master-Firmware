@@ -7,6 +7,9 @@
 #include <trajectoryPlanning.h>
 #include <sensors.h>
 
+long int lastrun;
+
+
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
 
 lights::LightManager *lightManager = new lights::LightManager();
@@ -22,15 +25,18 @@ void setup()
   lightManager->setup();
   motorManager->setup();
   sensorManager->setup();
+
+  Serial.begin(9600);
+  lastrun = millis();
 }
 
 void loop()
 {
+  sensorManager->poll();
   stateManager->poll();
   lightManager->poll();
   motorManager->poll();
   trajectoryManager->poll();
-  sensorManager->setup();
   
   // below code good for testing motor control. Will be removed in a PR or two.
   /*if(*StateData::state == StateMachine::StateEnum::Error){

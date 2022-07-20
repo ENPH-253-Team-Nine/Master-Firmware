@@ -8,7 +8,7 @@ AbstractPolledSensor::AbstractPolledSensor(void *storeLocation, int pin){
 }
 
 void AbstractPolledSensor::setup(){
-    pinMode(pin, INPUT);
+    pinMode(pin, INPUT_PULLUP);
 }
 
 AbstractInterruptSensor::AbstractInterruptSensor(void *storeLocation, int pin){
@@ -17,7 +17,7 @@ AbstractInterruptSensor::AbstractInterruptSensor(void *storeLocation, int pin){
 }
 
 void AbstractInterruptSensor::setup(){
-    pinMode(pin, INPUT);
+    pinMode(pin, INPUT_PULLUP);
 }
 
 /* IR Frequency*/

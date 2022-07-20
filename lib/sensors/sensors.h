@@ -23,7 +23,7 @@ namespace sensors
         void setup(); 
     private:
         
-        virtual void read();
+        virtual void read() = 0;
     };
 
     class AbstractInterruptSensor
@@ -35,7 +35,7 @@ namespace sensors
         int pin;
         void setup(); 
     private:
-        virtual void handler();
+        virtual void handler() = 0;
     };
 
     class IRFrequency : private AbstractPolledSensor
