@@ -6,21 +6,28 @@
 
 #include <stateData.h>
 
-namespace servos{
-    class ServoManager{
-        public:
+namespace servos
+{
+    class ServoManager
+    {
+    public:
         ServoManager();
         ~ServoManager();
         void poll();
         void setup();
+
     private:
-        enum enumServos{
+        enum enumServos
+        {
             ARM_ELBOW,
             ARM_CLAW,
             _LENGTH
         };
 
-        Servo *servos[enumServos::_LENGTH];
+        Servo *elbowServo;
+        Servo *clawServo;
+
+        // Servo *servos[enumServos::_LENGTH];
     };
 }
 

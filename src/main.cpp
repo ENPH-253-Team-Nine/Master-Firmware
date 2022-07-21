@@ -11,6 +11,7 @@
 
 long int lastrun;
 
+#include <servoControl.h>
 
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
 
@@ -25,12 +26,15 @@ sensors::SensorManager *sensorManager = new sensors::SensorManager();
 bridge::BridgeManager *bridgeManager = new bridge::BridgeManager();
 
 arm::ArmManager *armManager = new arm::ArmManager();
+servos::ServoManager *servoManager = new servos::ServoManager();
 
 void setup()
 {
   lightManager->setup();
   motorManager->setup();
   sensorManager->setup();
+  servoManager->setup();
+
 
   Serial.begin(9600);
   lastrun = millis();
@@ -39,18 +43,20 @@ void setup()
 void loop()
 {
   sensorManager->poll();
+  if (*StateData::state == StateMachine::StateEnum::Error)
+  {
+    StateData::clawServoPos = 180;
+  }
+  else
+  {
+    StateData::clawServoPos = 0;
+  }
+
   stateManager->poll();
   lightManager->poll();
   motorManager->poll();
   trajectoryManager->poll();
   bridgeManager->poll();
   armManager->poll();
-
-  
-  // below code good for testing motor control. Will be removed in a PR or two.
-  /*if(*StateData::state == StateMachine::StateEnum::Error){
-    StateData::driveSpeed = -64;
-  } else {
-    StateData::driveSpeed = 64;
-  }*/
+  servoManager->poll();
 }
