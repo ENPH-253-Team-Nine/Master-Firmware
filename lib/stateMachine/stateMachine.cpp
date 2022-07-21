@@ -27,8 +27,10 @@ void StateMachine::StateManager::poll()
     currentState = currentState->evaluateTransition();
 }
 
-/** Actual States **/
+/***** Actual States *****/
 
+
+/** Startup **/
 StateMachine::States::Startup::Startup()
 {
     this->stateEntryTime = millis();
@@ -53,54 +55,131 @@ std::string StateMachine::States::Startup::getDebugStateName()
     return "Startup";
 }
 
-// Leaving these as comments for now, we can fill them in as we need them but I
-// I think this early in testing it's just going to cause confusion.
+/** Seek Line **/
+StateMachine::States::SeekLine::SeekLine()
+{
+    this->stateEntryTime = millis();
+}
 
-/*StateMachine::State* StateMachine::States::SeekLine::evaluateTransition(){
-    return new StateMachine::States::Error();
+StateMachine::AbstractState *StateMachine::States::SeekLine::evaluateTransition()
+{
+    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
+    {
+        currentEnumState = StateMachine::StateEnum::Error;
+        StateData::state = &currentEnumState;
+        return new StateMachine::States::Error();
+    }
+    else
+    {
+        return this;
+    }
 }
-StateMachine::State* StateMachine::States::NavByLine::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+std::string StateMachine::States::SeekLine::getDebugStateName()
+{
+    return "Seek Line";
 }
-StateMachine::State* StateMachine::States::RampTransition::evaluateTransition(){
-    return new StateMachine::States::Error();
+/** Nav By Line **/
+StateMachine::States::NavByLine::NavByLine()
+{
+    this->stateEntryTime = millis();
 }
-StateMachine::State* StateMachine::States::TraverseArch::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+StateMachine::AbstractState *StateMachine::States::NavByLine::evaluateTransition()
+{
+    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
+    {
+        currentEnumState = StateMachine::StateEnum::Error;
+        StateData::state = &currentEnumState;
+        return new StateMachine::States::Error();
+    }
+    else
+    {
+        return this;
+    }
 }
-StateMachine::State* StateMachine::States::NavByIR::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+std::string StateMachine::States::NavByLine::getDebugStateName()
+{
+    return "Nav By Line";
 }
-StateMachine::State* StateMachine::States::SeekIR::evaluateTransition(){
-    return new StateMachine::States::NavByIR();
+
+/** Ramp Transition **/
+StateMachine::States::RampTransition::RampTransition()
+{
+    this->stateEntryTime = millis();
 }
-StateMachine::State* StateMachine::States::TerminalMiniTreasureGuidance::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+StateMachine::AbstractState *StateMachine::States::RampTransition::evaluateTransition()
+{
+    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
+    {
+        currentEnumState = StateMachine::StateEnum::Error;
+        StateData::state = &currentEnumState;
+        return new StateMachine::States::Error();
+    }
+    else
+    {
+        return this;
+    }
 }
-StateMachine::State* StateMachine::States::MiniTreasureCapture::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+std::string StateMachine::States::RampTransition::getDebugStateName()
+{
+    return "Ramp Transition";
 }
-StateMachine::State* StateMachine::States::SeekBridgeAlignment::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+/** Seek IR **/
+StateMachine::States::SeekIR::SeekIR()
+{
+    this->stateEntryTime = millis();
 }
-StateMachine::State* StateMachine::States::DeployBridge::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+StateMachine::AbstractState *StateMachine::States::SeekIR::evaluateTransition()
+{
+    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
+    {
+        currentEnumState = StateMachine::StateEnum::Error;
+        StateData::state = &currentEnumState;
+        return new StateMachine::States::Error();
+    }
+    else
+    {
+        return this;
+    }
 }
-StateMachine::State* StateMachine::States::NavByFaith::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+std::string StateMachine::States::SeekIR::getDebugStateName()
+{
+    return "Seek IR";
 }
-StateMachine::State* StateMachine::States::TerminalBigTreasureGuidance::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+/** Nav by IR **/
+StateMachine::States::NavByIR::NavByIR()
+{
+    this->stateEntryTime = millis();
 }
-StateMachine::State* StateMachine::States::BigTreasureCapture::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+StateMachine::AbstractState *StateMachine::States::NavByIR::evaluateTransition()
+{
+    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
+    {
+        currentEnumState = StateMachine::StateEnum::Error;
+        StateData::state = &currentEnumState;
+        return new StateMachine::States::Error();
+    }
+    else
+    {
+        return this;
+    }
 }
-StateMachine::State* StateMachine::States::SeekCPERM::evaluateTransition(){
-    return new StateMachine::States::Error();
+
+std::string StateMachine::States::NavByIR::getDebugStateName()
+{
+    return "Nav By IR";
 }
-StateMachine::State* StateMachine::States::Party::evaluateTransition(){
-    return new StateMachine::States::Error();
-} */
+
+/** Error **/
 StateMachine::States::Error::Error()
 {
     this->stateEntryTime = millis();
