@@ -5,6 +5,10 @@
 #include <motorControl.h>
 #include <stateData.h>
 #include <trajectoryPlanning.h>
+#include <sensors.h>
+
+long int lastrun;
+
 
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
 
@@ -14,14 +18,21 @@ motors::MotorManager *motorManager = new motors::MotorManager();
 
 trajectory::TrajectoryManager *trajectoryManager = new trajectory::TrajectoryManager();
 
+sensors::SensorManager *sensorManager = new sensors::SensorManager();
+
 void setup()
 {
   lightManager->setup();
   motorManager->setup();
+  sensorManager->setup();
+
+  Serial.begin(9600);
+  lastrun = millis();
 }
 
 void loop()
 {
+  sensorManager->poll();
   stateManager->poll();
   lightManager->poll();
   motorManager->poll();
