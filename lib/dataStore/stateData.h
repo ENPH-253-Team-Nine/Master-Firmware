@@ -51,6 +51,8 @@ namespace StateData{
         extern int leftEncoderCount;
         extern int rightEncoderCount;
     }
+    extern uint8_t elbowServoPos;
+    extern uint8_t clawServoPos;
 }
 
 
