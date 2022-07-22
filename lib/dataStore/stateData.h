@@ -39,7 +39,7 @@ namespace StateData{
         extern double clawReflectance;
     }
 
-    namespace mangets{
+    namespace magnets{
         extern double clawHall;
     }
 

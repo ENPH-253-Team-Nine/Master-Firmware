@@ -154,7 +154,7 @@ SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::IR_STRENGTH_RIGHT] = new IRFrequency(&StateData::IR::rightIRStrength,PB0);
     polledSensors[polledSensorEnum::CLAW_LIMIT_SWITCH] = new Switch(&StateData::switches::clawLimitSwitch, PB13);
     polledSensors[polledSensorEnum::CLAW_REFLECT] = new ReflectanceSensor(&StateData::reflectances::clawReflectance,PA5);
-    polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::mangets::clawHall,PA7);
+    polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
 
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 

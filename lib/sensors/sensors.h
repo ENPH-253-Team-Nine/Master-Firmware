@@ -90,6 +90,7 @@ namespace sensors
             friend Encoder;
             EncoderInterrupt(int pin, std::function<void()> upperHandle);
             void setup();
+            inline void handler() {};
             std::function<void()> upperHandle;
         } *encoderA;
 

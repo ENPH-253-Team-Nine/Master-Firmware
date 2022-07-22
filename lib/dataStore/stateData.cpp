@@ -14,7 +14,7 @@ sensors::SwitchState StateData::switches::clawLimitSwitch;
 
 double StateData::reflectances::clawReflectance;
 
-double StateData::mangets::clawHall;
+double StateData::magnets::clawHall;
 
 int StateData::encoders::leftEncoderCount;
 int StateData::encoders::rightEncoderCount;
