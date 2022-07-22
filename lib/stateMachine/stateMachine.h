@@ -31,26 +31,61 @@ namespace StateMachine
         private:
             long int stateEntryTime;
         };
-        /*class SeekLine : public State{
-            virtual State* evaluateTransition();
-            const std::string debugStateName = "SeekLine";
+
+        class SeekLine : public AbstractState
+        {
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            SeekLine();
+
+        private:
+            long int stateEntryTime;
         };
-        class NavByLine : public State{
+
+        class NavByLine : public AbstractState
+        {
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            NavByLine();
+
+        private:
+            long int stateEntryTime;
+        };
+
+        class RampTransition : public AbstractState
+        {
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            RampTransition();
+
+        private:
+            long int stateEntryTime;
+        };
+        /*class TraverseArch : public State{
             virtual State* evaluateTransition();
-            const std::string debugStateName = "NavByLine";};
-        class RampTransition : public State{
-            virtual State* evaluateTransition();
-            const std::string debugStateName = "RampTransition";};
-        class TraverseArch : public State{
-            virtual State* evaluateTransition();
-            const std::string debugStateName = "TraverseArch";};
-        class SeekIR : public State{
-            virtual State* evaluateTransition();
-            const std::string debugStateName = "SeekIR";};
-        class NavByIR : public State{
-            virtual State* evaluateTransition();
-            const std::string debugStateName = "NavByIR";};
-        class TerminalMiniTreasureGuidance : public State{
+            const std::string debugStateName = "TraverseArch";};*/
+
+        class SeekIR : public AbstractState
+        {
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            SeekIR();
+
+        private:
+            long int stateEntryTime;
+        };
+
+        class NavByIR : public AbstractState
+        {
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            NavByIR();
+
+        private:
+            long int stateEntryTime;
+        };
+
+        /*class TerminalMiniTreasureGuidance : public State{
             virtual State* evaluateTransition();
             const std::string debugStateName = "TerminalMiniTreasureGuidance";};
         class MiniTreasureCapture : public State{
@@ -97,13 +132,13 @@ namespace StateMachine
     enum class StateEnum
     {
         Startup,
-        /*SeekLine,
+        SeekLine,
         NavByLine,
         RampTransition,
-        TraverseArch,
+        /*TraverseArch,*/
         SeekIR,
         NavByIR,
-        TerminalMiniTreasureGuidance,
+        /*TerminalMiniTreasureGuidance,
         MiniTreasureCapture,
         SeekBridgeAlignment,
         DeployBridge,
