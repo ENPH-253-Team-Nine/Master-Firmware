@@ -42,6 +42,7 @@ StateMachine::AbstractState *StateMachine::States::Startup::evaluateTransition()
     {
         currentEnumState = StateMachine::StateEnum::Error;
         StateData::state = &currentEnumState;
+        StateData::debugStateName = this->getDebugStateName();
         return new StateMachine::States::Error();
     }
     else
@@ -191,6 +192,7 @@ StateMachine::AbstractState *StateMachine::States::Error::evaluateTransition()
     {
         currentEnumState = StateMachine::StateEnum::Startup;
         StateData::state = &currentEnumState;
+        StateData::debugStateName = this->getDebugStateName();
         return new StateMachine::States::Startup();
     }
     else

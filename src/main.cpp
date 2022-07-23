@@ -8,10 +8,13 @@
 #include <sensors.h>
 #include <bridge.h>
 #include <arm.h>
+#include <HMI.h>
 
 long int lastrun;
 
 #include <servoControl.h>
+
+
 
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
 
@@ -27,6 +30,7 @@ bridge::BridgeManager *bridgeManager = new bridge::BridgeManager();
 
 arm::ArmManager *armManager = new arm::ArmManager();
 servos::ServoManager *servoManager = new servos::ServoManager();
+HMI::HMIManager* hmiManager = new HMI::HMIManager();
 
 void setup()
 {
@@ -34,10 +38,13 @@ void setup()
   motorManager->setup();
   sensorManager->setup();
   servoManager->setup();
+  hmiManager->setup();
 
 
   Serial.begin(9600);
   lastrun = millis();
+
+
 }
 
 void loop()
@@ -59,4 +66,5 @@ void loop()
   bridgeManager->poll();
   armManager->poll();
   servoManager->poll();
+  hmiManager->poll();
 }
