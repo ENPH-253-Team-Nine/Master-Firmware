@@ -98,10 +98,12 @@ void Light::setLightState(LightState newState)
     {
     case Light::LightState::ON:
         digitalWrite(pin, !inverted);
+        StateData::mockLED = true;
         break;
 
     case Light::LightState::OFF:
         digitalWrite(pin, inverted);
+        StateData::mockLED = false;
         break;
     }
     lastChanged = millis();

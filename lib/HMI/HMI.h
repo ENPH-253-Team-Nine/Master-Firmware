@@ -5,8 +5,10 @@
 #include <Wire.h>
 #include <Adafruit_SSD1306.h>
 #include <stateData.h>
+#include <stateMachine.h>
 
 namespace HMI{
+    class HMISetting;
     class HMIManager{
     public:
         HMIManager();
@@ -23,9 +25,53 @@ namespace HMI{
 
         void drawFrame(uint8_t frameOffset);
 
-        void drawLogo();
+        void drawTitleBar();
+        void displayState();
+
+        enum settingsEnum{
+            SETTING_TESTONE,
+            SETTING_TESTTWO,
+            SETTING_TESTTHREE,
+            SETTING_TESTFOUR,
+            SETTING_TESTFIVE,
+            SETTING_TESTSIX,
+            _LENGTH
+        };
+
+        HMISetting* settings[settingsEnum::_LENGTH];
 
 
+    };
+
+    class HMISetting{
+        friend HMIManager;
+        virtual void changeSetting(int delta);
+        virtual std::string getDisplayName();
+        virtual void displaySetting(int ypos, bool selected);
+
+
+    };
+
+    class IntSetting : HMISetting{
+        friend HMIManager;
+
+        int* settingStore;
+
+        int maxValue;
+
+        int minValue;
+
+        std::string displayName;
+
+        Adafruit_SSD1306* displayHandler;
+
+        IntSetting(int* settingStore, int maxValue, int minValue, std::string displayName, Adafruit_SSD1306* displayHandler);
+
+        void changeSetting(int delta);
+
+        std::string getDisplayName();
+
+        void displaySetting(int ypos, bool selected);
     };
 }
 

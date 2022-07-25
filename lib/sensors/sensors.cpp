@@ -77,17 +77,19 @@ void HallSensor::read(){
 
 /* Button */
 
-Button::Button(void *storeLocation, int pin) : AbstractInterruptSensor(storeLocation, pin) {}
+Button::Button(void *storeLocation, int pin, bool incrementor) : AbstractInterruptSensor(storeLocation, pin) {
+    this->incrementor = incrementor;
+}
 
 void Button::setup(){
     AbstractInterruptSensor::setup();
     std::function<void()> passableHandle = [=]{this->handler();};  //oh god more terrible pointer fuckery, now with lambdas
                                                                     //https://stackoverflow.com/questions/7582546/using-generic-stdfunction-objects-with-member-functions-in-one-class
-    attachInterrupt(digitalPinToInterrupt(pin), passableHandle, RISING);
+    attachInterrupt(digitalPinToInterrupt(pin), passableHandle, FALLING);
 }
 
 void Button::handler(){
-    //IDK what this button is supposed to do at the moment.
+    incrementor ? *((int *) storeLocation)+=1 : *((double *) storeLocation) -=1;
 }
 
 
@@ -161,6 +163,8 @@ SensorManager::SensorManager(){
     encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
     encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
 
+    interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PA11, false);
+
 }
 
 void SensorManager::poll(){
@@ -173,6 +177,7 @@ void SensorManager::setup(){
     for(AbstractPolledSensor* sensor : polledSensors){
         sensor->setup();
     }
+    interruptedSensors[interruptSensorEnum::HMI_1]->setup();
     /*for(AbstractInterruptSensor* sensor : interruptedSensors){
         sensor->setup();
     }*/ //temp ignoring

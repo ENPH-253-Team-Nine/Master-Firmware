@@ -49,6 +49,7 @@ namespace StateData{
 
     namespace HMI{
         static constexpr char exposition[] = "IDK what to do with HMI at the moment";
+        extern uint8_t settingSelectIndex;
     }
 
     namespace encoders{
@@ -57,6 +58,13 @@ namespace StateData{
     }
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
+
+    extern int testSettingOne;
+    extern int testSettingTwo;
+    extern int testSettingThree;
+    extern int testSettingFour;
+    extern int testSettingFive;
+    extern int testSettingSix;
 }
 
 
