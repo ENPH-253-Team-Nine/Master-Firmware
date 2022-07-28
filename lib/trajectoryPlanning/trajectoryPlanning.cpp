@@ -6,6 +6,13 @@ TrajectoryManager::TrajectoryManager() {};
 
 TrajectoryManager::~TrajectoryManager() {};
 
+void TrajectoryManager::setup(){
+    StateData::reflectances::kp = kp_default;
+    StateData::reflectances::kd = kd_default;
+    StateData::reflectances::setpoint = setpoint_default;
+    StateData::reflectances::lasterror = 0;
+}
+
 void TrajectoryManager::poll(){
 
     //... some code to determine what those should be ...
@@ -15,6 +22,8 @@ void TrajectoryManager::poll(){
 
     switch(*StateData::state){
         case StateMachine::StateEnum::Error:
+            navigateByLine();
+            break;
         case StateMachine::StateEnum::Startup:
             //allStop();
             break;
@@ -36,4 +45,21 @@ void TrajectoryManager::poll(){
 void TrajectoryManager::allStop(){
     speed = 0;
     steer = 0;
+}
+
+void TrajectoryManager::navigateByLine() {
+    int error = (StateData::reflectances::lineLeft - StateData::reflectances::lineRight) - StateData::reflectances::setpoint;
+    int p = StateData::reflectances::kp*error;
+    int d = StateData::reflectances::kd*(error-StateData::reflectances::lasterror);
+
+    StateData::reflectances::lasterror = error;
+    int correction = p + d;
+
+    speed = 1;
+
+    int _steer = speed*correction/1000;
+    if (_steer > 127) _steer = 127;
+    else if (_steer < -127) _steer = -127;
+
+    steer = _steer;
 }

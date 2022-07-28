@@ -39,6 +39,11 @@ namespace StateData{
         extern double clawReflectance;
         extern double leftReflectance;
         extern double rightReflectance;
+
+        extern int kp;
+        extern int kd;
+        extern int setpoint; 
+        extern int lasterror;
     }
 
     namespace magnets{

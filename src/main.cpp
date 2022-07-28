@@ -37,6 +37,8 @@ void setup()
   sensorManager->setup();
   //servoManager->setup();
   lastSerialSend = 0;
+  servoManager->setup();
+  trajectoryManager->setup();
 
 
   Serial.begin(9600);

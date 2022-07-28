@@ -24,3 +24,8 @@ uint8_t armServoPos;
 uint8_t clawServoPos;   
 uint8_t StateData::elbowServoPos;
 uint8_t StateData::clawServoPos;   
+
+int StateData::reflectances::kp;
+int StateData::reflectances::kd;
+int StateData::reflectances::setpoint; 
+int StateData::reflectances::lasterror;
