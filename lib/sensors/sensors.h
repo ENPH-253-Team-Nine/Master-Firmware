@@ -33,7 +33,7 @@ namespace sensors
         AbstractInterruptSensor(void *storeLocation, int pin);
         void* storeLocation;
         int pin;
-        void setup(); 
+        virtual void setup(); 
     private:
         virtual void handler() = 0;
     };
@@ -76,7 +76,8 @@ namespace sensors
         Button(void *storeLocation, int pin, bool incrementor);
         void setup();
         virtual void handler();
-
+        long int lastPress;
+        static constexpr int debouceTime_ms = 100;
         bool incrementor;
     };
 

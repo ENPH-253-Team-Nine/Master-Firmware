@@ -3,11 +3,12 @@
 using namespace HMI;
 
 HMIManager::HMIManager(){
+    //wire2 = new TwoWire(PB10, PB11);
     this->displayHandler = new Adafruit_SSD1306(screenWidth,screenHeight,&Wire,oledReset);
-    StateData::HMI::settingSelectIndex = 3;
+    StateData::HMI::settingSelectIndex = 2;
     settings[settingsEnum::SETTING_TESTONE] = new IntSetting(&StateData::testSettingOne,1024,-1024,"Test 1", displayHandler);
     settings[settingsEnum::SETTING_TESTTWO] = new IntSetting(&StateData::testSettingTwo,1024,-1024,"Test 2", displayHandler);
-    settings[settingsEnum::SETTING_TESTTHREE] = new IntSetting(&StateData::testSettingThree,1024,-1024,"Test 3", displayHandler);
+    settings[settingsEnum::SETTING_TESTTHREE] = new IntSetting(&StateData::testSettingThree, 1024, -1024,"Test 3", displayHandler);
     settings[settingsEnum::SETTING_TESTFOUR] = new IntSetting(&StateData::testSettingFour,1024,-1024,"Test 4", displayHandler);
     settings[settingsEnum::SETTING_TESTFIVE] = new IntSetting(&StateData::testSettingFive,1024,-1024,"Test 5", displayHandler);
     settings[settingsEnum::SETTING_TESTSIX] = new IntSetting(&StateData::testSettingSix,1024,-1024,"Test 6", displayHandler);
@@ -17,6 +18,7 @@ HMIManager::HMIManager(){
 }
 
 void HMIManager::setup(){
+    //wire2->begin();
     displayHandler->begin(SSD1306_SWITCHCAPVCC, 0x3C);
     displayHandler->clearDisplay();
     for(uint8_t i=screenHeight/2-2; i>0; i--){
@@ -37,7 +39,7 @@ void HMIManager::poll(){
 
     if(StateData::HMI::settingSelectIndex>=2) settings[StateData::HMI::settingSelectIndex-2]->displaySetting(15,false);
     if(StateData::HMI::settingSelectIndex>=1) settings[StateData::HMI::settingSelectIndex-1]->displaySetting(25,false);
-    settings[StateData::HMI::settingSelectIndex]->displaySetting(35,true);
+    settings[StateData::HMI::settingSelectIndex]->displaySetting(35,false);
     if(StateData::HMI::settingSelectIndex<=settingsEnum::_LENGTH-1) settings[StateData::HMI::settingSelectIndex+1]->displaySetting(45,false);
     if(StateData::HMI::settingSelectIndex<=settingsEnum::_LENGTH-2) settings[StateData::HMI::settingSelectIndex+2]->displaySetting(55,false);
 

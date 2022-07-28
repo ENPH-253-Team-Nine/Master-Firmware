@@ -23,6 +23,7 @@ namespace HMI{
 
         Adafruit_SSD1306* displayHandler;
 
+        TwoWire* wire2;
         void drawFrame(uint8_t frameOffset);
 
         void drawTitleBar();
