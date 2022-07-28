@@ -159,13 +159,13 @@ SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::CLAW_LIMIT_SWITCH] = new Switch(&StateData::switches::clawLimitSwitch, PB13);
     polledSensors[polledSensorEnum::CLAW_REFLECT] = new ReflectanceSensor(&StateData::reflectances::clawReflectance,PA5);
     polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
-    polledSensors[polledSensorEnum::REFLECT_LEFT] = new ReflectanceSensor(&StateData::reflectances::leftReflectance, PB1);
-    polledSensors[polledSensorEnum::REFLECT_RIGHT] = new ReflectanceSensor(&StateData::reflectances::rightReflectance, PB0);
+    polledSensors[polledSensorEnum::REFLECT_LEFT] = new ReflectanceSensor(&StateData::reflectances::leftReflectance, PA2);
+    polledSensors[polledSensorEnum::REFLECT_RIGHT] = new ReflectanceSensor(&StateData::reflectances::rightReflectance, PA4);
 
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 
-    encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
-    encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
+    //encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
+    //encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
 
 }
 
@@ -182,7 +182,7 @@ void SensorManager::setup(){
     /*for(AbstractInterruptSensor* sensor : interruptedSensors){
         sensor->setup();
     }*/ //temp ignoring
-    for(Encoder* sensor : encoders){
-        sensor->setup();
-    }
+    //for(Encoder* sensor : encoders){
+    //    sensor->setup();
+    //}
 }
