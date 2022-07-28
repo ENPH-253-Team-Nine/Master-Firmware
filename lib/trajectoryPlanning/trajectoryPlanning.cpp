@@ -10,11 +10,13 @@ void TrajectoryManager::poll(){
 
     //... some code to determine what those should be ...
 
+    speed = 100;
+    steer = 0;
+
     switch(*StateData::state){
         case StateMachine::StateEnum::Error:
-            // Fallthrough
         case StateMachine::StateEnum::Startup:
-            allStop();
+            //allStop();
             break;
         //add more cases as neccesary. 
         //presumably that means enabling more states.

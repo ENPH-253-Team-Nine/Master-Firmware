@@ -33,7 +33,7 @@ void setup()
   lightManager->setup();
   motorManager->setup();
   sensorManager->setup();
-  servoManager->setup();
+  //servoManager->setup();
 
 
   Serial.begin(9600);
@@ -56,7 +56,7 @@ void loop()
   lightManager->poll();
   motorManager->poll();
   trajectoryManager->poll();
-  bridgeManager->poll();
-  armManager->poll();
-  servoManager->poll();
+  //bridgeManager->poll();
+  //armManager->poll();
+  //servoManager->poll();
 }
