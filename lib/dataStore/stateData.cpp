@@ -13,6 +13,8 @@ double StateData::IR::rightIRStrength;
 sensors::SwitchState StateData::switches::clawLimitSwitch;
 
 double StateData::reflectances::clawReflectance;
+double StateData::reflectances::leftReflectance;
+double StateData::reflectances::rightReflectance;
 
 double StateData::magnets::clawHall;
 

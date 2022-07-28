@@ -21,6 +21,7 @@ namespace sensors
         void* storeLocation;
         int pin;
         void setup(); 
+        void setup(int inputType);
     private:
         
         virtual void read() = 0;
@@ -123,6 +124,8 @@ namespace sensors
             CLAW_LIMIT_SWITCH,
             CLAW_REFLECT,
             CLAW_HALL_EFFECT,
+            REFLECT_LEFT,
+            REFLECT_RIGHT,
             _LENGTH_POLLED
         };
 

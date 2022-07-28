@@ -37,6 +37,8 @@ namespace StateData{
 
     namespace reflectances{
         extern double clawReflectance;
+        extern double leftReflectance;
+        extern double rightReflectance;
     }
 
     namespace magnets{

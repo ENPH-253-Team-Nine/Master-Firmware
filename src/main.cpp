@@ -11,6 +11,8 @@
 
 long int lastrun;
 
+long int lastSerialSend;
+
 #include <servoControl.h>
 
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
@@ -34,6 +36,7 @@ void setup()
   motorManager->setup();
   sensorManager->setup();
   //servoManager->setup();
+  lastSerialSend = 0;
 
 
   Serial.begin(9600);
@@ -42,6 +45,12 @@ void setup()
 
 void loop()
 {
+
+  if(millis()>=lastSerialSend+1000){
+    Serial.println(StateData::reflectances::leftReflectance);
+    Serial.println(StateData::reflectances::rightReflectance);
+    lastSerialSend = millis();
+  }
   sensorManager->poll();
   if (*StateData::state == StateMachine::StateEnum::Error)
   {

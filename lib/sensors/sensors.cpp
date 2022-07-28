@@ -11,6 +11,10 @@ void AbstractPolledSensor::setup(){
     pinMode(pin, INPUT_PULLUP);
 }
 
+void AbstractPolledSensor::setup(int inputType){
+    pinMode(pin, inputType);
+}
+
 AbstractInterruptSensor::AbstractInterruptSensor(void *storeLocation, int pin){
     this->storeLocation = storeLocation;
     this->pin = pin;
@@ -56,7 +60,7 @@ void Switch::read(){
 ReflectanceSensor::ReflectanceSensor(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void ReflectanceSensor::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void ReflectanceSensor::read(){
@@ -155,6 +159,8 @@ SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::CLAW_LIMIT_SWITCH] = new Switch(&StateData::switches::clawLimitSwitch, PB13);
     polledSensors[polledSensorEnum::CLAW_REFLECT] = new ReflectanceSensor(&StateData::reflectances::clawReflectance,PA5);
     polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
+    polledSensors[polledSensorEnum::REFLECT_LEFT] = new ReflectanceSensor(&StateData::reflectances::leftReflectance, PB1);
+    polledSensors[polledSensorEnum::REFLECT_RIGHT] = new ReflectanceSensor(&StateData::reflectances::rightReflectance, PB0);
 
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 
