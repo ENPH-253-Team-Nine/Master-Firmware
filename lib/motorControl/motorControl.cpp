@@ -5,7 +5,7 @@ using namespace motors;
 DriveMotor::DriveMotor(PinName forwardPin, PinName reversePin){
     this->forwardPin = forwardPin;
     this->reversePin = reversePin;
-    speed = 0;    
+    speed = 0;      
 }
 
 void DriveMotor::setup(){
@@ -58,8 +58,8 @@ void DriveMotor::updatePWMs(){
 
 
 MotorManager::MotorManager(){
-    motors[DRIVE_LEFT] = new DriveMotor(PA_0, PA_1);
-    motors[DRIVE_RIGHT] = new DriveMotor(PA_9, PA_10);
+    motors[DRIVE_LEFT] = new DriveMotor(PA_9, PA_1);
+    motors[DRIVE_RIGHT] = new DriveMotor(PA_0, PA_10);
 }
 
 MotorManager::~MotorManager(){
