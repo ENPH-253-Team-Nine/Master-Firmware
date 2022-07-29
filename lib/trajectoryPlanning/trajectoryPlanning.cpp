@@ -17,15 +17,12 @@ void TrajectoryManager::poll(){
 
     //... some code to determine what those should be ...
 
-    speed = 100;
-    steer = 0;
 
     switch(*StateData::state){
         case StateMachine::StateEnum::Error:
-            navigateByLine();
-            break;
         case StateMachine::StateEnum::Startup:
             //allStop();
+            navigateByLine();
             break;
         //add more cases as neccesary. 
         //presumably that means enabling more states.
@@ -48,14 +45,14 @@ void TrajectoryManager::allStop(){
 }
 
 void TrajectoryManager::navigateByLine() {
-    int error = (StateData::reflectances::lineLeft - StateData::reflectances::lineRight) - StateData::reflectances::setpoint;
+    int error = (StateData::reflectances::leftReflectance - StateData::reflectances::rightReflectance) - StateData::reflectances::setpoint;
     int p = StateData::reflectances::kp*error;
     int d = StateData::reflectances::kd*(error-StateData::reflectances::lasterror);
 
     StateData::reflectances::lasterror = error;
     int correction = p + d;
 
-    speed = 1;
+    speed = 70;
 
     int _steer = speed*correction/1000;
     if (_steer > 127) _steer = 127;
