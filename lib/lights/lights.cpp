@@ -31,7 +31,13 @@ void LightManager::poll()
         case StateMachine::StateEnum::Error:
             // If we read from the data store that the state is 'error',
             // use the 'be on' routine to run the lights.
+            blink(25, light);
+            break;
+        case StateMachine::StateEnum::NavByLine:
             beOn(light);
+            break;
+        case StateMachine::StateEnum::SeekLine:
+            blink(100, light);
             break;
         }
     }

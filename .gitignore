@@ -51,8 +51,12 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
+project.checksum
+
 /.vscode
 
 *.code-workspace
 
 /.pio/build
+
+/.VSCodeCounter

@@ -42,6 +42,7 @@ namespace StateData{
 
         extern int kp;
         extern int kd;
+        extern int detectedThreshold;
         extern int setpoint; 
         extern int lasterror;
     }
@@ -63,6 +64,8 @@ namespace StateData{
 
     extern int8_t leftMotorSpeed;
     extern int8_t rightMotorSpeed;
+
+    extern long int lineLastNoContactTime;
 }
 
 

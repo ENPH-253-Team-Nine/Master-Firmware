@@ -27,8 +27,11 @@ uint8_t StateData::clawServoPos;
 
 int StateData::reflectances::kp;
 int StateData::reflectances::kd;
+int StateData::reflectances::detectedThreshold;
 int StateData::reflectances::setpoint; 
 int StateData::reflectances::lasterror;
 
 int8_t StateData::rightMotorSpeed;
 int8_t StateData::leftMotorSpeed;
+
+long int StateData::lineLastNoContactTime;

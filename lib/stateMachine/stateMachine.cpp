@@ -38,11 +38,11 @@ StateMachine::States::Startup::Startup()
 
 StateMachine::AbstractState *StateMachine::States::Startup::evaluateTransition()
 {
-    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
+    if (millis() >= stateEntryTime + 2000 /*just some random constant*/)
     {
         currentEnumState = StateMachine::StateEnum::Error;
         StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+        return new StateMachine::States::NavByLine();
     }
     else
     {
@@ -63,11 +63,10 @@ StateMachine::States::SeekLine::SeekLine()
 
 StateMachine::AbstractState *StateMachine::States::SeekLine::evaluateTransition()
 {
-    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
-    {
-        currentEnumState = StateMachine::StateEnum::Error;
+    if (StateData::reflectances::leftReflectance<StateData::reflectances::detectedThreshold && StateData::reflectances::rightReflectance<StateData::reflectances::detectedThreshold){
+        currentEnumState = StateMachine::StateEnum::SeekLine;
         StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+        return new StateMachine::States::SeekLine();
     }
     else
     {
@@ -87,11 +86,10 @@ StateMachine::States::NavByLine::NavByLine()
 
 StateMachine::AbstractState *StateMachine::States::NavByLine::evaluateTransition()
 {
-    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
-    {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+    if (millis() > StateData::lineLastNoContactTime + 500){
+        currentEnumState = StateMachine::StateEnum::SeekLine;
+        StateData::state = & currentEnumState;
+        return new StateMachine::States::NavByLine;
     }
     else
     {

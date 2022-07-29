@@ -34,6 +34,7 @@ namespace StateMachine
 
         class SeekLine : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
             SeekLine();
@@ -44,6 +45,7 @@ namespace StateMachine
 
         class NavByLine : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
             NavByLine();
@@ -54,6 +56,7 @@ namespace StateMachine
 
         class RampTransition : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
             RampTransition();
@@ -67,6 +70,7 @@ namespace StateMachine
 
         class SeekIR : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
             SeekIR();
@@ -77,6 +81,7 @@ namespace StateMachine
 
         class NavByIR : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
             NavByIR();
