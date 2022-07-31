@@ -14,6 +14,8 @@ long int lastrun;
 
 #include <servoControl.h>
 
+//#define GPIO_AF0_SWJ           ((uint8_t)0x00)  
+
 
 
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
@@ -36,13 +38,14 @@ void setup()
 {
   lightManager->setup();
   motorManager->setup();
+  hmiManager->setup(); //hmi manager must be setup before sensor manager for reasons
   sensorManager->setup();
   servoManager->setup();
-  hmiManager->setup();
 
 
   Serial.begin(9600);
   lastrun = millis();
+  //pinMode(PB3, OUTPUT);
 
 
 }

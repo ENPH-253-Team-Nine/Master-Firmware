@@ -80,6 +80,7 @@ void HallSensor::read(){
 Button::Button(void *storeLocation, int pin, bool incrementor) : AbstractInterruptSensor(storeLocation, pin) {
     this->incrementor = incrementor;
     this->lastPress = 0;
+
 }
 
 void Button::setup(){
@@ -91,7 +92,7 @@ void Button::setup(){
 
 void Button::handler(){
     if(millis()>=lastPress+debouceTime_ms){
-        incrementor ? *((int *) storeLocation)+=1 : *((int *) storeLocation) -=1;
+        incrementor ? *((int *) storeLocation) += 1 : *((int *) storeLocation) -= 1;
         lastPress = millis();
     }
     
@@ -165,13 +166,13 @@ SensorManager::SensorManager(){
 
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 
-    encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
-    encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
+    //encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
+    //encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
 
-    interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PB11, false);
-    interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingLevel, PA11, true);
-    interruptedSensors[interruptSensorEnum::HMI_3] = new Button(&StateData::HMI::settingLevel, PA13, false);
-    interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingSelectIndex, PA15, true);
+    interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PA11, false);
+    interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingLevel, PA12, true);
+    interruptedSensors[interruptSensorEnum::HMI_3] = new Button(&StateData::HMI::settingLevel, PA15, false);
+    interruptedSensors[interruptSensorEnum::HMI_4] = new Button(&StateData::HMI::settingSelectIndex, PB3, true);
 
 
 }
@@ -186,13 +187,16 @@ void SensorManager::setup(){
     for(AbstractPolledSensor* sensor : polledSensors){
         sensor->setup();
     }
-    interruptedSensors[interruptSensorEnum::HMI_1]->setup();
-    interruptedSensors[interruptSensorEnum::HMI_2]->setup();
 
-    /*for(AbstractInterruptSensor* sensor : interruptedSensors){
-        sensor->setup();
-    }*/ //temp ignoring
-    for(Encoder* sensor : encoders){
-        sensor->setup();
-    }
+    // for(AbstractInterruptSensor* sensor : interruptedSensors){
+    //     sensor->setup();
+    // }
+    interruptedSensors[interruptSensorEnum::HMI_1] ->setup();
+    interruptedSensors[interruptSensorEnum::HMI_2] ->setup();
+    interruptedSensors[interruptSensorEnum::HMI_3] ->setup();
+    interruptedSensors[interruptSensorEnum::HMI_4] ->setup();
+
+    //for(Encoder* sensor : encoders){
+    //    sensor->setup();
+    //}
 }

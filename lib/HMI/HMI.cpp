@@ -27,21 +27,25 @@ void HMIManager::setup(){
         displayHandler->display();
         delay(1);
     }
-
 }
 
 void HMIManager::poll(){
     displayHandler->clearDisplay();
     drawFrame(0);
     drawTitleBar();
-
+    if(StateData::HMI::settingSelectIndex>=settingsEnum::_LENGTH){
+        StateData::HMI::settingSelectIndex = settingsEnum::_LENGTH-1;
+    }
+    else if(StateData::HMI::settingSelectIndex<0){
+        StateData::HMI::settingSelectIndex = 0;
+    }
     StateData::testSettingThree = StateData::HMI::settingSelectIndex;
 
     if(StateData::HMI::settingSelectIndex>=2) settings[StateData::HMI::settingSelectIndex-2]->displaySetting(15,false);
     if(StateData::HMI::settingSelectIndex>=1) settings[StateData::HMI::settingSelectIndex-1]->displaySetting(25,false);
-    settings[StateData::HMI::settingSelectIndex]->displaySetting(35,false);
-    if(StateData::HMI::settingSelectIndex<=settingsEnum::_LENGTH-1) settings[StateData::HMI::settingSelectIndex+1]->displaySetting(45,false);
-    if(StateData::HMI::settingSelectIndex<=settingsEnum::_LENGTH-2) settings[StateData::HMI::settingSelectIndex+2]->displaySetting(55,false);
+    settings[StateData::HMI::settingSelectIndex]->displaySetting(35,true);
+    if(StateData::HMI::settingSelectIndex+1<settingsEnum::_LENGTH) settings[StateData::HMI::settingSelectIndex+1]->displaySetting(45,false);
+    if(StateData::HMI::settingSelectIndex+2<settingsEnum::_LENGTH) settings[StateData::HMI::settingSelectIndex+2]->displaySetting(55,false);
 
 
 
@@ -71,6 +75,9 @@ void HMIManager::displayState(){
             displayHandler->invertDisplay(true);          
             break;
     }
+    displayHandler->print("(");
+    displayHandler->print(StateData::HMI::settingSelectIndex);
+    displayHandler->print(") ");
     displayHandler->print("State:");
     displayHandler->println(StateData::debugStateName.c_str());
 

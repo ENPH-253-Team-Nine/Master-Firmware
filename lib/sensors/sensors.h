@@ -75,10 +75,11 @@ namespace sensors
         friend SensorManager;
         Button(void *storeLocation, int pin, bool incrementor);
         void setup();
-        virtual void handler();
+        void handler();
         long int lastPress;
         static constexpr int debouceTime_ms = 100;
         bool incrementor;
+ 
     };
 
     class Encoder{ //encoders feel the need to be special.

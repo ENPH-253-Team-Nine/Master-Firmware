@@ -34,6 +34,6 @@ int StateData::testSettingSix;
 
 
 
-int StateData::HMI::settingSelectIndex;
-int StateData::HMI::settingLevel;
+int8_t StateData::HMI::settingSelectIndex;
+int8_t StateData::HMI::settingLevel;
 
