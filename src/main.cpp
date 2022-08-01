@@ -8,10 +8,15 @@
 #include <sensors.h>
 #include <bridge.h>
 #include <arm.h>
+#include <HMI.h>
 
 long int lastrun;
 
 #include <servoControl.h>
+
+//#define GPIO_AF0_SWJ           ((uint8_t)0x00)  
+
+
 
 StateMachine::StateManager *stateManager = new StateMachine::StateManager();
 
@@ -27,17 +32,25 @@ bridge::BridgeManager *bridgeManager = new bridge::BridgeManager();
 
 arm::ArmManager *armManager = new arm::ArmManager();
 servos::ServoManager *servoManager = new servos::ServoManager();
+HMI::HMIManager* hmiManager = new HMI::HMIManager();
 
 void setup()
 {
   lightManager->setup();
   motorManager->setup();
+  hmiManager->setup(); //hmi manager must be setup before sensor manager for reasons
   sensorManager->setup();
   servoManager->setup();
+
+  StateData::persistent::getFromMemory();
+
 
 
   Serial.begin(9600);
   lastrun = millis();
+  //pinMode(PB3, OUTPUT);
+
+
 }
 
 void loop()
@@ -59,4 +72,5 @@ void loop()
   bridgeManager->poll();
   armManager->poll();
   servoManager->poll();
+  hmiManager->poll();
 }

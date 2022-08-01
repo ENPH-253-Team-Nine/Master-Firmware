@@ -2,6 +2,9 @@
 #define STATE_DATA_H
 
 #include <stdint.h>
+#include <string>
+
+#include <EEPROM.h>
 
 // kinda gross but neccesary, AFAIK, forward declaration.
 namespace StateMachine{
@@ -22,6 +25,9 @@ namespace StateData{
     // so that it can 'exist' without including stateMachine.h, which is not 
     // possible to include for fun circular dependancy reasons.
     extern StateMachine::StateEnum* state;
+    extern std::string debugStateName;
+
+    extern bool mockLED;
 
     extern int8_t driveSpeed;
     extern int8_t driveSteer;
@@ -44,7 +50,8 @@ namespace StateData{
     }
 
     namespace HMI{
-        static constexpr char exposition[] = "IDK what to do with HMI at the moment";
+        extern int8_t settingSelectIndex;
+        extern int8_t settingLevel;
     }
 
     namespace encoders{
@@ -53,6 +60,29 @@ namespace StateData{
     }
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
+
+    extern int testSettingOne;
+    extern int testSettingTwo;
+    extern int testSettingThree;
+    extern int testSettingFour;
+    extern int testSettingFive;
+    extern int testSettingSix;
+
+    namespace persistent{
+            typedef struct{
+                //remember your usual struct packing rules
+                int storedSetting1;
+                int storedSetting2;
+                int storedSetting3;
+            } StoredSettings;
+
+            extern StoredSettings storedSettings;
+
+            extern uint8_t* storedSettings_bytes;
+
+        void getFromMemory();
+        void storeInMemory();   
+    } 
 }
 
 

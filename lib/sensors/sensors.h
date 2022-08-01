@@ -33,7 +33,7 @@ namespace sensors
         AbstractInterruptSensor(void *storeLocation, int pin);
         void* storeLocation;
         int pin;
-        void setup(); 
+        virtual void setup(); 
     private:
         virtual void handler() = 0;
     };
@@ -72,9 +72,14 @@ namespace sensors
     };
 
     class Button : AbstractInterruptSensor{
-        Button(void *storeLocation, int pin);
+        friend SensorManager;
+        Button(void *storeLocation, int pin, bool incrementor);
         void setup();
-        virtual void handler();
+        void handler();
+        long int lastPress;
+        static constexpr int debouceTime_ms = 100;
+        bool incrementor;
+ 
     };
 
     class Encoder{ //encoders feel the need to be special.
