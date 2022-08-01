@@ -14,10 +14,18 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_TESTFOUR] = new IntSetting(&StateData::testSettingFour, 1024, -1024, 0, "Test 4", displayHandler);
     settings[settingsEnum::SETTING_TESTFIVE] = new IntSetting(&StateData::testSettingFive, 1024, -1024, -1024, "Test 5", displayHandler);
     settings[settingsEnum::SETTING_TESTSIX] = new IntSetting(&StateData::testSettingSix, 1024, -1024, 0, "Test 6", displayHandler);
+    settings[settingsEnum::SETTING_PERSISTONE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting1, 1024, -1024, 0, "Persist 1", displayHandler);
+    settings[settingsEnum::SETTING_PERSISTTWO] = new IntSetting(&StateData::persistent::storedSettings.storedSetting2, 1024, -1024, 0, "Persist 2", displayHandler);
+    settings[settingsEnum::SETTING_PERSISTTHREE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting3, 1024, -1024, 0, "Persist 3", displayHandler);
+    settings[settingsEnum::SETTING_STOREBUTTON] = new ButtonSetting(StateData::persistent::storeInMemory, "Write EEPROM", displayHandler);
 }
 
 void HMIManager::setup()
 {
+    //this should really be in some sort of storage manager but it doesn't exist
+    //so I'm putting it here;
+
+
     displayHandler->begin(SSD1306_SWITCHCAPVCC, 0x3C);
     displayHandler->clearDisplay();
     for (uint8_t i = screenHeight / 2 - 2; i > 0; i--)
@@ -196,5 +204,45 @@ void IntSetting::displaySetting(int ypos, bool selected, bool superSelected, int
         displayHandler->print(static_cast<uint8_t>(log10(delta)));
         displayHandler->print(")");
     }
+    displayHandler->println();
+}
+
+ButtonSetting::ButtonSetting(std::function<void()> handler, std::string displayName, Adafruit_SSD1306* displayHandler){
+    this->handler = handler;
+    this->displayName = displayName;
+    this->displayHandler = displayHandler;
+}
+
+void ButtonSetting::changeSetting(int delta){
+    handler();
+}
+
+std::string ButtonSetting::getDisplayName(){
+    return displayName;
+}
+
+void ButtonSetting::displaySetting(int ypos, bool selected, bool superSelected, int delta){
+    if (superSelected)
+    {
+        //int height = 46;
+        displayHandler->setTextColor(SSD1306_BLACK, SSD1306_WHITE);
+        //displayHandler->drawRect(128-12, 15, 10, height, SSD1306_WHITE);
+
+        //int dataHeight;
+        //if(*settingStore >= defaultPoint){
+        //    dataHeight = static_cast<double>((*settingStore-minValue)) / (maxValue-minValue) * height;
+        //}
+
+
+        //displayHandler->fillRect(128-12, 15+dataHeight, 10, height - dataHeight, SSD1306_WHITE);
+    }
+    else
+    {
+        displayHandler->setTextColor(SSD1306_WHITE);
+    }
+    displayHandler->setTextSize(1);
+    displayHandler->setCursor(2, ypos);
+    displayHandler->print(selected ? ">" : " ");
+    displayHandler->print(displayName.c_str());
     displayHandler->println();
 }

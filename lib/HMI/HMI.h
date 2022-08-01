@@ -25,8 +25,6 @@ namespace HMI{
 
         Adafruit_SSD1306* displayHandler;
 
-        TwoWire* wire2;
-
         int16_t settingDelta;
         int8_t internalSettingIndex;
         void drawFrame(uint8_t frameOffset);
@@ -42,6 +40,10 @@ namespace HMI{
             SETTING_TESTFOUR,
             SETTING_TESTFIVE,
             SETTING_TESTSIX,
+            SETTING_PERSISTONE,
+            SETTING_PERSISTTWO,
+            SETTING_PERSISTTHREE,
+            SETTING_STOREBUTTON,
             _LENGTH
         };
 
@@ -75,6 +77,24 @@ namespace HMI{
         Adafruit_SSD1306* displayHandler;
 
         IntSetting(int* settingStore, int maxValue, int minValue, int defaultPoint, std::string displayName, Adafruit_SSD1306* displayHandler);
+
+        void changeSetting(int delta);
+
+        std::string getDisplayName();
+
+        void displaySetting(int ypos, bool selected, bool superSelected, int delta);
+    };
+
+    class ButtonSetting : HMISetting{
+        friend HMIManager;
+
+        std::function<void()> handler;
+
+        std::string displayName;
+
+        Adafruit_SSD1306* displayHandler;
+
+        ButtonSetting(std::function<void()> handler, std::string displayName, Adafruit_SSD1306* displayHandler);
 
         void changeSetting(int delta);
 

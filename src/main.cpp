@@ -42,6 +42,9 @@ void setup()
   sensorManager->setup();
   servoManager->setup();
 
+  StateData::persistent::getFromMemory();
+
+
 
   Serial.begin(9600);
   lastrun = millis();

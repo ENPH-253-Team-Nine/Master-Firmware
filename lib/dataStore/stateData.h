@@ -4,6 +4,8 @@
 #include <stdint.h>
 #include <string>
 
+#include <EEPROM.h>
+
 // kinda gross but neccesary, AFAIK, forward declaration.
 namespace StateMachine{
     enum class StateEnum;
@@ -65,6 +67,22 @@ namespace StateData{
     extern int testSettingFour;
     extern int testSettingFive;
     extern int testSettingSix;
+
+    namespace persistent{
+            typedef struct{
+                //remember your usual struct packing rules
+                int storedSetting1;
+                int storedSetting2;
+                int storedSetting3;
+            } StoredSettings;
+
+            extern StoredSettings storedSettings;
+
+            extern uint8_t* storedSettings_bytes;
+
+        void getFromMemory();
+        void storeInMemory();   
+    } 
 }
 
 
