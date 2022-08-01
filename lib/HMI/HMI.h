@@ -7,6 +7,8 @@
 #include <stateData.h>
 #include <stateMachine.h>
 
+#include <math.h>
+
 namespace HMI{
     class HMISetting;
     class HMIManager{
@@ -24,10 +26,14 @@ namespace HMI{
         Adafruit_SSD1306* displayHandler;
 
         TwoWire* wire2;
+
+        int16_t settingDelta;
+        int8_t internalSettingIndex;
         void drawFrame(uint8_t frameOffset);
 
         void drawTitleBar();
         void displayState();
+        void cycleDelta();
 
         enum settingsEnum{
             SETTING_TESTONE,
@@ -48,7 +54,7 @@ namespace HMI{
         friend HMIManager;
         virtual void changeSetting(int delta);
         virtual std::string getDisplayName();
-        virtual void displaySetting(int ypos, bool selected);
+        virtual void displaySetting(int ypos, bool selected, bool superSelected, int delta);
 
 
     };
@@ -62,17 +68,19 @@ namespace HMI{
 
         int minValue;
 
+        int defaultPoint;
+
         std::string displayName;
 
         Adafruit_SSD1306* displayHandler;
 
-        IntSetting(int* settingStore, int maxValue, int minValue, std::string displayName, Adafruit_SSD1306* displayHandler);
+        IntSetting(int* settingStore, int maxValue, int minValue, int defaultPoint, std::string displayName, Adafruit_SSD1306* displayHandler);
 
         void changeSetting(int delta);
 
         std::string getDisplayName();
 
-        void displaySetting(int ypos, bool selected);
+        void displaySetting(int ypos, bool selected, bool superSelected, int delta);
     };
 }
 
