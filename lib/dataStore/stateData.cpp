@@ -7,8 +7,13 @@ int8_t StateData::driveSteer;
 
 
 
-double StateData::IR::leftIRStrength;
-double StateData::IR::rightIRStrength;
+int StateData::IR::leftIRStrength;
+int StateData::IR::rightIRStrength;
+int StateData::IR::detectedThreshold;
+int StateData::IR::kp;
+int StateData::IR::kd;
+int StateData::IR::lasterror;
+int StateData::IR::setpoint;
 
 sensors::SwitchState StateData::switches::clawLimitSwitch;
 

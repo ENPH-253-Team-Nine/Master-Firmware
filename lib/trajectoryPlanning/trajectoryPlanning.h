@@ -22,6 +22,7 @@ namespace trajectory{
 
             void allStop();
             void navigateByLine();
+            void navigateByIR();
             static constexpr int kp_default =  3;
             static constexpr int kd_default =  1;
             static constexpr int setpoint_default = 0.0;

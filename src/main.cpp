@@ -48,9 +48,19 @@ void setup()
 void loop()
 {
 
+  // if(millis()>=lastSerialSend+1000){
+  //   Serial.print("L, R: "); Serial.print(StateData::reflectances::leftReflectance);
+  //   Serial.print(", "); Serial.print(StateData::reflectances::rightReflectance);
+  //   Serial.print(", Speed: "); Serial.print(StateData::driveSpeed);
+  //   Serial.print(", Steer: "); Serial.print(StateData::driveSteer);
+  //   Serial.print(", Right Speed: "); Serial.print(StateData::rightMotorSpeed);
+  //   Serial.print(", Left Speed: "); Serial.print(StateData::leftMotorSpeed);
+  //   Serial.println();
+  //   lastSerialSend = millis();
+  // }
   if(millis()>=lastSerialSend+1000){
-    Serial.print("L, R: "); Serial.print(StateData::reflectances::leftReflectance);
-    Serial.print(", "); Serial.print(StateData::reflectances::rightReflectance);
+    Serial.print("(IR) L, R: "); Serial.print(StateData::IR::leftIRStrength);
+    Serial.print(", "); Serial.print(StateData::IR::rightIRStrength);
     Serial.print(", Speed: "); Serial.print(StateData::driveSpeed);
     Serial.print(", Steer: "); Serial.print(StateData::driveSteer);
     Serial.print(", Right Speed: "); Serial.print(StateData::rightMotorSpeed);

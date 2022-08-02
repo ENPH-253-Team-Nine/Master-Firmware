@@ -27,8 +27,13 @@ namespace StateData{
     extern int8_t driveSteer;
 
     namespace IR{
-        extern double leftIRStrength;
-        extern double rightIRStrength;
+        extern int leftIRStrength;
+        extern int rightIRStrength;
+        extern int kp;
+        extern int kd;
+        extern int detectedThreshold;
+        extern int setpoint; 
+        extern int lasterror;
     }
 
     namespace switches{
