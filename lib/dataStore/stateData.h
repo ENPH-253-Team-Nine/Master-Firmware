@@ -58,6 +58,12 @@ namespace StateData{
         extern int leftEncoderCount;
         extern int rightEncoderCount;
     }
+
+    namespace sonar{
+        extern int sonarSweepSize; //length of array
+        extern double sonarSweepAngularResolution; //degrees per entry
+        extern int sonarSweep[160];
+    }
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
 
@@ -74,6 +80,8 @@ namespace StateData{
                 int storedSetting1;
                 int storedSetting2;
                 int storedSetting3;
+
+                int idolWidth_mm;
             } StoredSettings;
 
             extern StoredSettings storedSettings;

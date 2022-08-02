@@ -17,6 +17,7 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_PERSISTONE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting1, 1024, -1024, 0, "Persist 1", displayHandler);
     settings[settingsEnum::SETTING_PERSISTTWO] = new IntSetting(&StateData::persistent::storedSettings.storedSetting2, 1024, -1024, 0, "Persist 2", displayHandler);
     settings[settingsEnum::SETTING_PERSISTTHREE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting3, 1024, -1024, 0, "Persist 3", displayHandler);
+    settings[settingsEnum::IDOL_WIDTH] = new IntSetting(&StateData::persistent::storedSettings.idolWidth_mm, 100,0,0, "Idl sz (mm)", displayHandler);
     settings[settingsEnum::SETTING_STOREBUTTON] = new ButtonSetting(StateData::persistent::storeInMemory, "Write EEPROM", displayHandler);
 }
 

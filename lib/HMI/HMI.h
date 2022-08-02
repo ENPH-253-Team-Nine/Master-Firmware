@@ -43,6 +43,7 @@ namespace HMI{
             SETTING_PERSISTONE,
             SETTING_PERSISTTWO,
             SETTING_PERSISTTHREE,
+            IDOL_WIDTH,
             SETTING_STOREBUTTON,
             _LENGTH
         };
