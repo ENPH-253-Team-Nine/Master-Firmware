@@ -11,6 +11,7 @@
 #include <HMI.h>
 
 long int lastrun;
+unsigned long lastSerial;
 
 #include <servoControl.h>
 
@@ -48,6 +49,7 @@ void setup()
 
   Serial.begin(9600);
   lastrun = millis();
+  lastSerial = millis();
   //pinMode(PB3, OUTPUT);
 
 
@@ -64,7 +66,7 @@ void loop()
   {
     StateData::clawServoPos = 0;
   }
-
+  
   stateManager->poll();
   lightManager->poll();
   motorManager->poll();
@@ -73,4 +75,11 @@ void loop()
   armManager->poll();
   servoManager->poll();
   hmiManager->poll();
+
+  if (millis() - lastSerial >= 1000) {
+    pwm_start(PA_9, 100, 64, RESOLUTION_7B_COMPARE_FORMAT);
+    pwm_start(PA_10, 100, 68, RESOLUTION_7B_COMPARE_FORMAT);
+    Serial.println(StateData::debugStateName.c_str());
+    lastSerial = millis();
+  }
 }
