@@ -10,8 +10,8 @@ DriveMotor::DriveMotor(PinName forwardPin, PinName reversePin){
 }
 
 void DriveMotor::setup(){
-    pinMode(PA0,OUTPUT);
-    pinMode(PA1,OUTPUT);
+    pinMode(forwardPin,OUTPUT);
+    pinMode(reversePin,OUTPUT);
 }
 
 void DriveMotor::setDirection(DriveMotor::Direction direction){
@@ -59,8 +59,8 @@ void DriveMotor::updatePWMs(){
 
 
 MotorManager::MotorManager(){
-    motors[DRIVE_LEFT] = new DriveMotor(PA_0, PA_1);
-    motors[DRIVE_RIGHT] = new DriveMotor(PA_2, PA_3);
+    motors[DRIVE_LEFT] = new DriveMotor(PA_9, PA_1);
+    motors[DRIVE_RIGHT] = new DriveMotor(PA_0, PA_10);
 }
 
 MotorManager::~MotorManager(){
