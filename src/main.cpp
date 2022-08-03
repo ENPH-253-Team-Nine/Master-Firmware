@@ -42,6 +42,7 @@ void setup()
   hmiManager->setup(); //hmi manager must be setup before sensor manager for reasons
   sensorManager->setup();
   servoManager->setup();
+  trajectoryManager->setup();
 
   StateData::persistent::getFromMemory();
 
@@ -79,7 +80,12 @@ void loop()
   if (millis() - lastSerial >= 1000) {
     pwm_start(PA_9, 100, 64, RESOLUTION_7B_COMPARE_FORMAT);
     pwm_start(PA_10, 100, 68, RESOLUTION_7B_COMPARE_FORMAT);
-    Serial.println(StateData::debugStateName.c_str());
+    Serial.print("State: "); Serial.println(StateData::debugStateName.c_str());
+    Serial.print("L / R: "); 
+    Serial.print(StateData::reflectances::lineLeft); Serial.print(", ");
+    Serial.print(StateData::reflectances::lineRight); Serial.print(", ");
+    Serial.print("Steer: "); Serial.print(StateData::driveSteer); Serial.print(", ");
+    Serial.println();
     lastSerial = millis();
   }
 }

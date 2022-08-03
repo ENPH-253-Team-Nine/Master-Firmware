@@ -7,8 +7,8 @@ AbstractPolledSensor::AbstractPolledSensor(void *storeLocation, int pin){
     this->pin = pin;
 }
 
-void AbstractPolledSensor::setup(){
-    pinMode(pin, INPUT_PULLUP);
+void AbstractPolledSensor::setup(int inputType){
+    pinMode(pin, inputType);
 }
 
 AbstractInterruptSensor::AbstractInterruptSensor(void *storeLocation, int pin){
@@ -25,7 +25,7 @@ void AbstractInterruptSensor::setup(){
 IRFrequency::IRFrequency(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void IRFrequency::setup() {
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void IRFrequency::read(){
@@ -37,7 +37,7 @@ void IRFrequency::read(){
 Switch::Switch(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void Switch::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void Switch::read(){
@@ -56,7 +56,7 @@ void Switch::read(){
 ReflectanceSensor::ReflectanceSensor(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void ReflectanceSensor::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void ReflectanceSensor::read(){
@@ -68,7 +68,7 @@ void ReflectanceSensor::read(){
 HallSensor::HallSensor(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void HallSensor::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void HallSensor::read(){
@@ -140,7 +140,7 @@ void Encoder::EncoderInterrupt::setup(){
 Encoder::EncoderPoll::EncoderPoll(Encoder::EncoderValue* storeData, int pin) : AbstractPolledSensor(storeData, pin) {}
 
 void Encoder::EncoderPoll::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void Encoder::EncoderPoll::read(){
@@ -163,6 +163,8 @@ SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::CLAW_LIMIT_SWITCH] = new Switch(&StateData::switches::clawLimitSwitch, PB13);
     polledSensors[polledSensorEnum::CLAW_REFLECT] = new ReflectanceSensor(&StateData::reflectances::clawReflectance,PA5);
     polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
+    polledSensors[polledSensorEnum::LINE_LEFT] = new ReflectanceSensor(&StateData::reflectances::lineLeft, PA2);
+    polledSensors[polledSensorEnum::LINE_RIGHT] = new ReflectanceSensor(&StateData::reflectances::lineRight, PA4);
 
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 
@@ -185,7 +187,7 @@ void SensorManager::poll(){
 
 void SensorManager::setup(){
     for(AbstractPolledSensor* sensor : polledSensors){
-        sensor->setup();
+        sensor->setup(INPUT);
     }
 
     // for(AbstractInterruptSensor* sensor : interruptedSensors){
