@@ -215,6 +215,7 @@ StateMachine::AbstractState *StateMachine::States::Error::evaluateTransition()
     }
     else
     {
+        StateData::HMI::HMIDisplayEnabled = true;
         *StateData::state = StateMachine::StateEnum::Startup;
         StateData::debugStateName = this->getDebugStateName();
         return this;
