@@ -51,6 +51,8 @@ namespace HMI{
 
         HMISetting* settings[settingsEnum::_LENGTH];
 
+        void displayOff();
+
 
     };
 

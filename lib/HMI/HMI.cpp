@@ -10,7 +10,7 @@ HMIManager::HMIManager()
     StateData::HMI::settingSelectIndex = 0;
     internalSettingIndex = 2;
     settingDelta = 1;
-    settings[settingsEnum::SETTING_DISPLAY_ENABLED] = new ButtonSetting(displayOff, "Display Off", displayHandler);
+    settings[settingsEnum::SETTING_DISPLAY_ENABLED] = new ButtonSetting([=]{displayOff();}, "Display Off", displayHandler);
     settings[settingsEnum::SETTING_TESTONE] = new IntSetting(&StateData::testSettingOne, 1024, -1024, 0, "Test 1", displayHandler);
     settings[settingsEnum::SETTING_TESTTWO] = new IntSetting(&StateData::testSettingTwo, 1024, -1024, 0, "Test 2", displayHandler);
     settings[settingsEnum::SETTING_TESTTHREE] = new IntSetting(&StateData::testSettingThree, 1024, -1024, -1024, "Test 3", displayHandler);
@@ -258,7 +258,9 @@ void ButtonSetting::displaySetting(int ypos, bool selected, bool superSelected, 
     displayHandler->println();
 }
 
-void displayOff()
+void HMIManager::displayOff()
 {
+    displayHandler->clearDisplay();
+    displayHandler->display();
     StateData::HMI::HMIDisplayEnabled = false;
 }
