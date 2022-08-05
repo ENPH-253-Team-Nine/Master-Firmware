@@ -40,13 +40,15 @@ StateMachine::AbstractState *StateMachine::States::Startup::evaluateTransition()
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        StateData::debugStateName = this->getDebugStateName();
-        return new StateMachine::States::Error();
+        StateMachine::States::Error* newState = new StateMachine::States::Error();
+        *StateData::state = StateMachine::StateEnum::Error;
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
     }
     else
     {
+        *StateData::state = StateMachine::StateEnum::Startup;
+        StateData::debugStateName = this->getDebugStateName();
         return this;
     }
 }
@@ -66,12 +68,15 @@ StateMachine::AbstractState *StateMachine::States::SeekLine::evaluateTransition(
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+        *StateData::state = StateMachine::StateEnum::Error;
+        StateMachine::States::Error* newState = new StateMachine::States::Error();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
     }
     else
     {
+        StateData::debugStateName = this->getDebugStateName();
+        *StateData::state = StateMachine::StateEnum::SeekLine;
         return this;
     }
 }
@@ -90,12 +95,15 @@ StateMachine::AbstractState *StateMachine::States::NavByLine::evaluateTransition
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+        *StateData::state = StateMachine::StateEnum::Error;
+        StateMachine::States::Error* newState =  new StateMachine::States::Error();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
     }
     else
     {
+        StateData::debugStateName = this->getDebugStateName();
+        *StateData::state = StateMachine::StateEnum::NavByLine;
         return this;
     }
 }
@@ -115,12 +123,15 @@ StateMachine::AbstractState *StateMachine::States::RampTransition::evaluateTrans
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+        *StateData::state = StateMachine::StateEnum::Error;
+        StateMachine::States::Error* newState = new StateMachine::States::Error();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
     }
     else
     {
+        StateData::debugStateName = this->getDebugStateName();
+        *StateData::state = StateMachine::StateEnum::RampTransition;
         return this;
     }
 }
@@ -140,12 +151,15 @@ StateMachine::AbstractState *StateMachine::States::SeekIR::evaluateTransition()
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+       *StateData::state = StateMachine::StateEnum::Error;
+        StateMachine::States::Error* newState = new StateMachine::States::Error();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
     }
     else
     {
+        StateData::debugStateName = this->getDebugStateName();
+        *StateData::state = StateMachine::StateEnum::SeekIR;
         return this;
     }
 }
@@ -165,12 +179,15 @@ StateMachine::AbstractState *StateMachine::States::NavByIR::evaluateTransition()
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Error;
-        StateData::state = &currentEnumState;
-        return new StateMachine::States::Error();
+        *StateData::state = StateMachine::StateEnum::Error;
+        StateMachine::States::Error* newState =  new StateMachine::States::Error();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
     }
     else
     {
+        StateData::debugStateName = this->getDebugStateName();
+        *StateData::state = StateMachine::StateEnum::NavByIR;
         return this;
     }
 }
@@ -190,13 +207,16 @@ StateMachine::AbstractState *StateMachine::States::Error::evaluateTransition()
 {
     if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        currentEnumState = StateMachine::StateEnum::Startup;
-        StateData::state = &currentEnumState;
-        StateData::debugStateName = this->getDebugStateName();
-        return new StateMachine::States::Startup();
+        *StateData::state = StateMachine::StateEnum::Startup;
+        StateMachine::States::Startup* newState =  new StateMachine::States::Startup();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
+
     }
     else
     {
+        *StateData::state = StateMachine::StateEnum::Startup;
+        StateData::debugStateName = this->getDebugStateName();
         return this;
     }
 }
