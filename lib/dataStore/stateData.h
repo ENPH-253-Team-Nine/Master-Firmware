@@ -52,6 +52,7 @@ namespace StateData{
     namespace HMI{
         extern int8_t settingSelectIndex;
         extern int8_t settingLevel;
+        extern bool HMIDisplayEnabled;
     }
 
     namespace encoders{

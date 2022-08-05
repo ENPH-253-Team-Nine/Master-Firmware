@@ -91,6 +91,7 @@ void Button::setup(){
 }
 
 void Button::handler(){
+    StateData::HMI::HMIDisplayEnabled = true;
     if(millis()>=lastPress+debouceTime_ms){
         incrementor ? *((int *) storeLocation) += 1 : *((int *) storeLocation) -= 1;
         lastPress = millis();

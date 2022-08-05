@@ -34,6 +34,7 @@ namespace HMI{
         void cycleDelta();
 
         enum settingsEnum{
+            SETTING_DISPLAY_ENABLED,
             SETTING_TESTONE,
             SETTING_TESTTWO,
             SETTING_TESTTHREE,
