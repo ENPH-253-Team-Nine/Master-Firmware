@@ -34,6 +34,7 @@ namespace HMI{
         void cycleDelta();
 
         enum settingsEnum{
+            SETTING_DISPLAY_ENABLED,
             SETTING_TESTONE,
             SETTING_TESTTWO,
             SETTING_TESTTHREE,
@@ -43,11 +44,14 @@ namespace HMI{
             SETTING_PERSISTONE,
             SETTING_PERSISTTWO,
             SETTING_PERSISTTHREE,
+            IDOL_WIDTH,
             SETTING_STOREBUTTON,
             _LENGTH
         };
 
         HMISetting* settings[settingsEnum::_LENGTH];
+
+        void displayOff();
 
 
     };

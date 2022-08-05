@@ -2,12 +2,15 @@
 
 using namespace HMI;
 
+void displayOff();
+
 HMIManager::HMIManager()
 {
     this->displayHandler = new Adafruit_SSD1306(screenWidth, screenHeight, &Wire, oledReset);
     StateData::HMI::settingSelectIndex = 0;
     internalSettingIndex = 2;
     settingDelta = 1;
+    settings[settingsEnum::SETTING_DISPLAY_ENABLED] = new ButtonSetting([=]{displayOff();}, "Display Off", displayHandler);
     settings[settingsEnum::SETTING_TESTONE] = new IntSetting(&StateData::testSettingOne, 1024, -1024, 0, "Test 1", displayHandler);
     settings[settingsEnum::SETTING_TESTTWO] = new IntSetting(&StateData::testSettingTwo, 1024, -1024, 0, "Test 2", displayHandler);
     settings[settingsEnum::SETTING_TESTTHREE] = new IntSetting(&StateData::testSettingThree, 1024, -1024, -1024, "Test 3", displayHandler);
@@ -17,14 +20,14 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_PERSISTONE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting1, 1024, -1024, 0, "Persist 1", displayHandler);
     settings[settingsEnum::SETTING_PERSISTTWO] = new IntSetting(&StateData::persistent::storedSettings.storedSetting2, 1024, -1024, 0, "Persist 2", displayHandler);
     settings[settingsEnum::SETTING_PERSISTTHREE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting3, 1024, -1024, 0, "Persist 3", displayHandler);
+    settings[settingsEnum::IDOL_WIDTH] = new IntSetting(&StateData::persistent::storedSettings.idolWidth_mm, 100, 0, 0, "Idl sz (mm)", displayHandler);
     settings[settingsEnum::SETTING_STOREBUTTON] = new ButtonSetting(StateData::persistent::storeInMemory, "Write EEPROM", displayHandler);
 }
 
 void HMIManager::setup()
 {
-    //this should really be in some sort of storage manager but it doesn't exist
-    //so I'm putting it here;
-
+    // this should really be in some sort of storage manager but it doesn't exist
+    // so I'm putting it here;
 
     displayHandler->begin(SSD1306_SWITCHCAPVCC, 0x3C);
     displayHandler->clearDisplay();
@@ -39,66 +42,69 @@ void HMIManager::setup()
 
 void HMIManager::poll()
 {
-    displayHandler->clearDisplay();
-    drawFrame(0);
-    drawTitleBar();
-
-    if (StateData::HMI::settingLevel > 1)
+    if (StateData::HMI::HMIDisplayEnabled)
     {
-        cycleDelta();
-        StateData::HMI::settingLevel = 1;
-    }
-    else if (StateData::HMI::settingLevel < 0)
-    {
-        StateData::HMI::settingLevel = 0;
-    }
-    switch (StateData::HMI::settingLevel)
-    {
-    case 0:
-        if (StateData::HMI::settingSelectIndex > 0)
-        {
-            internalSettingIndex += 1;
-            StateData::HMI::settingSelectIndex = 0;
-        }
-        else if (StateData::HMI::settingSelectIndex < 0)
-        {
-            internalSettingIndex -= 1;
-            StateData::HMI::settingSelectIndex = 0;
-        }
-        if (internalSettingIndex >= settingsEnum::_LENGTH)
-        {
-            internalSettingIndex = settingsEnum::_LENGTH - 1;
-        }
-        else if (internalSettingIndex < 0)
-        {
-            internalSettingIndex = 0;
-        }
-        break;
-    case 1:
-        if (StateData::HMI::settingSelectIndex > 0)
-        {
-            settings[internalSettingIndex]->changeSetting(-1 * settingDelta);
-            StateData::HMI::settingSelectIndex = 0;
-        }
-        else if (StateData::HMI::settingSelectIndex < 0)
-        {
-            settings[internalSettingIndex]->changeSetting(settingDelta);
-            StateData::HMI::settingSelectIndex = 0;
-        }
-        break;
-    }
+        displayHandler->clearDisplay();
+        drawFrame(0);
+        drawTitleBar();
 
-    if (internalSettingIndex >= 2)
-        settings[internalSettingIndex - 2]->displaySetting(15, false, false, settingDelta);
-    if (internalSettingIndex >= 1)
-        settings[internalSettingIndex - 1]->displaySetting(25, false, false, settingDelta);
-    settings[internalSettingIndex]->displaySetting(35, true, StateData::HMI::settingLevel >= 1, settingDelta);
-    if (internalSettingIndex + 1 < settingsEnum::_LENGTH)
-        settings[internalSettingIndex + 1]->displaySetting(45, false, false, settingDelta);
-    if (internalSettingIndex + 2 < settingsEnum::_LENGTH)
-        settings[internalSettingIndex + 2]->displaySetting(55, false, false, settingDelta);
+        if (StateData::HMI::settingLevel > 1)
+        {
+            cycleDelta();
+            StateData::HMI::settingLevel = 1;
+        }
+        else if (StateData::HMI::settingLevel < 0)
+        {
+            StateData::HMI::settingLevel = 0;
+        }
+        switch (StateData::HMI::settingLevel)
+        {
+        case 0:
+            if (StateData::HMI::settingSelectIndex > 0)
+            {
+                internalSettingIndex += 1;
+                StateData::HMI::settingSelectIndex = 0;
+            }
+            else if (StateData::HMI::settingSelectIndex < 0)
+            {
+                internalSettingIndex -= 1;
+                StateData::HMI::settingSelectIndex = 0;
+            }
+            if (internalSettingIndex >= settingsEnum::_LENGTH)
+            {
+                internalSettingIndex = settingsEnum::_LENGTH - 1;
+            }
+            else if (internalSettingIndex < 0)
+            {
+                internalSettingIndex = 0;
+            }
+            break;
+        case 1:
+            if (StateData::HMI::settingSelectIndex > 0)
+            {
+                settings[internalSettingIndex]->changeSetting(-1 * settingDelta);
+                StateData::HMI::settingSelectIndex = 0;
+            }
+            else if (StateData::HMI::settingSelectIndex < 0)
+            {
+                settings[internalSettingIndex]->changeSetting(settingDelta);
+                StateData::HMI::settingSelectIndex = 0;
+            }
+            break;
+        }
 
-    displayHandler->display();
+        if (internalSettingIndex >= 2)
+            settings[internalSettingIndex - 2]->displaySetting(15, false, false, settingDelta);
+        if (internalSettingIndex >= 1)
+            settings[internalSettingIndex - 1]->displaySetting(25, false, false, settingDelta);
+        settings[internalSettingIndex]->displaySetting(35, true, StateData::HMI::settingLevel >= 1, settingDelta);
+        if (internalSettingIndex + 1 < settingsEnum::_LENGTH)
+            settings[internalSettingIndex + 1]->displaySetting(45, false, false, settingDelta);
+        if (internalSettingIndex + 2 < settingsEnum::_LENGTH)
+            settings[internalSettingIndex + 2]->displaySetting(55, false, false, settingDelta);
+
+        displayHandler->display();
+    }
 }
 
 void HMIManager::drawFrame(uint8_t frameOffset)
@@ -122,10 +128,10 @@ void HMIManager::displayState()
     switch (*StateData::state)
     {
     case StateMachine::StateEnum::Error:
-        displayHandler->invertDisplay(false);
+        displayHandler->invertDisplay(true);
         break;
     default:
-        displayHandler->invertDisplay(true);
+        displayHandler->invertDisplay(false);
         break;
     }
     displayHandler->print("State:");
@@ -160,9 +166,12 @@ void IntSetting::changeSetting(int delta)
 {
     *settingStore += delta;
 
-    if(*settingStore>maxValue){
+    if (*settingStore > maxValue)
+    {
         *settingStore = maxValue;
-    } else if(*settingStore<minValue){
+    }
+    else if (*settingStore < minValue)
+    {
         *settingStore = minValue;
     }
 }
@@ -176,17 +185,16 @@ void IntSetting::displaySetting(int ypos, bool selected, bool superSelected, int
 {
     if (superSelected)
     {
-        //int height = 46;
+        // int height = 46;
         displayHandler->setTextColor(SSD1306_BLACK, SSD1306_WHITE);
-        //displayHandler->drawRect(128-12, 15, 10, height, SSD1306_WHITE);
+        // displayHandler->drawRect(128-12, 15, 10, height, SSD1306_WHITE);
 
-        //int dataHeight;
-        //if(*settingStore >= defaultPoint){
-        //    dataHeight = static_cast<double>((*settingStore-minValue)) / (maxValue-minValue) * height;
-        //}
+        // int dataHeight;
+        // if(*settingStore >= defaultPoint){
+        //     dataHeight = static_cast<double>((*settingStore-minValue)) / (maxValue-minValue) * height;
+        // }
 
-
-        //displayHandler->fillRect(128-12, 15+dataHeight, 10, height - dataHeight, SSD1306_WHITE);
+        // displayHandler->fillRect(128-12, 15+dataHeight, 10, height - dataHeight, SSD1306_WHITE);
     }
     else
     {
@@ -207,34 +215,37 @@ void IntSetting::displaySetting(int ypos, bool selected, bool superSelected, int
     displayHandler->println();
 }
 
-ButtonSetting::ButtonSetting(std::function<void()> handler, std::string displayName, Adafruit_SSD1306* displayHandler){
+ButtonSetting::ButtonSetting(std::function<void()> handler, std::string displayName, Adafruit_SSD1306 *displayHandler)
+{
     this->handler = handler;
     this->displayName = displayName;
     this->displayHandler = displayHandler;
 }
 
-void ButtonSetting::changeSetting(int delta){
+void ButtonSetting::changeSetting(int delta)
+{
     handler();
 }
 
-std::string ButtonSetting::getDisplayName(){
+std::string ButtonSetting::getDisplayName()
+{
     return displayName;
 }
 
-void ButtonSetting::displaySetting(int ypos, bool selected, bool superSelected, int delta){
+void ButtonSetting::displaySetting(int ypos, bool selected, bool superSelected, int delta)
+{
     if (superSelected)
     {
-        //int height = 46;
+        // int height = 46;
         displayHandler->setTextColor(SSD1306_BLACK, SSD1306_WHITE);
-        //displayHandler->drawRect(128-12, 15, 10, height, SSD1306_WHITE);
+        // displayHandler->drawRect(128-12, 15, 10, height, SSD1306_WHITE);
 
-        //int dataHeight;
-        //if(*settingStore >= defaultPoint){
-        //    dataHeight = static_cast<double>((*settingStore-minValue)) / (maxValue-minValue) * height;
-        //}
+        // int dataHeight;
+        // if(*settingStore >= defaultPoint){
+        //     dataHeight = static_cast<double>((*settingStore-minValue)) / (maxValue-minValue) * height;
+        // }
 
-
-        //displayHandler->fillRect(128-12, 15+dataHeight, 10, height - dataHeight, SSD1306_WHITE);
+        // displayHandler->fillRect(128-12, 15+dataHeight, 10, height - dataHeight, SSD1306_WHITE);
     }
     else
     {
@@ -245,4 +256,12 @@ void ButtonSetting::displaySetting(int ypos, bool selected, bool superSelected, 
     displayHandler->print(selected ? ">" : " ");
     displayHandler->print(displayName.c_str());
     displayHandler->println();
+}
+
+void HMIManager::displayOff()
+{
+    displayHandler->clearDisplay();
+    displayHandler->display();
+    StateData::HMI::HMIDisplayEnabled = false;
+    delay(500);
 }
