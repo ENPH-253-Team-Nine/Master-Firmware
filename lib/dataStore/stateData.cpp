@@ -36,7 +36,7 @@ int StateData::testSettingSix;
 
 int8_t StateData::HMI::settingSelectIndex;
 int8_t StateData::HMI::settingLevel;
-bool StateData::HMI::HMIDisplayEnabled;
+bool StateData::HMI::HMIDisplayEnabled = true;
 
 StateData::persistent::StoredSettings StateData::persistent::storedSettings;
 

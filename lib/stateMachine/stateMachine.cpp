@@ -34,6 +34,7 @@ void StateMachine::StateManager::poll()
 StateMachine::States::Startup::Startup()
 {
     this->stateEntryTime = millis();
+    StateData::state = &currentEnumState;
 }
 
 StateMachine::AbstractState *StateMachine::States::Startup::evaluateTransition()
@@ -216,7 +217,7 @@ StateMachine::AbstractState *StateMachine::States::Error::evaluateTransition()
     else
     {
         StateData::HMI::HMIDisplayEnabled = true;
-        *StateData::state = StateMachine::StateEnum::Startup;
+        *StateData::state = StateMachine::StateEnum::Error;
         StateData::debugStateName = this->getDebugStateName();
         return this;
     }

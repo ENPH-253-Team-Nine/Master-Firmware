@@ -128,10 +128,10 @@ void HMIManager::displayState()
     switch (*StateData::state)
     {
     case StateMachine::StateEnum::Error:
-        displayHandler->invertDisplay(false);
+        displayHandler->invertDisplay(true);
         break;
     default:
-        displayHandler->invertDisplay(true);
+        displayHandler->invertDisplay(false);
         break;
     }
     displayHandler->print("State:");
@@ -263,4 +263,5 @@ void HMIManager::displayOff()
     displayHandler->clearDisplay();
     displayHandler->display();
     StateData::HMI::HMIDisplayEnabled = false;
+    delay(500);
 }
