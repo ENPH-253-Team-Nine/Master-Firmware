@@ -20,7 +20,7 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_STOREBUTTON] = new ButtonSetting(StateData::persistent::storeInMemory, "Write EEPROM", displayHandler);
     settings[settingsEnum::SETTING_LINEKP] = new IntSetting(&StateData::persistent::storedSettings.lineKP, 100, 0, 10, "line KP", displayHandler);
     settings[settingsEnum::SETTING_LINEKD] = new IntSetting(&StateData::persistent::storedSettings.lineKD, 100, 0, 10, "line KD", displayHandler);
-    settings[settingsEnum::SETTING_LINECSCALE] = new IntSetting(&StateData::persistent::storedSettings.lineCScale, 1000000, 1, 1000, "line C Scale", displayHandler);
+    settings[settingsEnum::SETTING_LINECSCALE] = new IntSetting(&StateData::persistent::storedSettings.lineCScale, 1000000, 1, 10, "line C Scale", displayHandler);
     settings[settingsEnum::SETTING_LINELTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineLThresh, 1024, 1, 420, "line L thresh", displayHandler);
     settings[settingsEnum::SETTING_LINERTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineRThresh, 1024, 1, 85, "line R thresh", displayHandler);
 }
