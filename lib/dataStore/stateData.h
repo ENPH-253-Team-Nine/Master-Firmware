@@ -62,11 +62,18 @@ namespace StateData{
     namespace HMI{
         extern int8_t settingSelectIndex;
         extern int8_t settingLevel;
+        extern bool HMIDisplayEnabled;
     }
 
     namespace encoders{
         extern int leftEncoderCount;
         extern int rightEncoderCount;
+    }
+
+    namespace sonar{
+        extern int sonarSweepSize; //length of array
+        extern double sonarSweepAngularResolution; //degrees per entry
+        extern int sonarSweep[160];
     }
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
@@ -93,6 +100,8 @@ namespace StateData{
                 int lineLThresh;
                 int lineRThresh;
                 int lineCorCoeff;
+
+                int idolWidth_mm;
             } StoredSettings;
 
             extern StoredSettings storedSettings;
