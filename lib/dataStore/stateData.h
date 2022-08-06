@@ -42,14 +42,17 @@ namespace StateData{
     }
 
     namespace reflectances{
-        extern double clawReflectance;
+        extern int clawReflectance;
         extern int lineLeft;
         extern int lineRight;
 
-        extern float kp;
-        extern float kd;
+        extern int kp;
+        extern int kd;
+        extern int corrScale;
         extern int setpoint; 
         extern int lasterror;
+
+        extern int correction;
     }
 
     namespace magnets{

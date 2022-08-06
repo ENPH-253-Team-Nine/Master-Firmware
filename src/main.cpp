@@ -78,12 +78,12 @@ void loop()
   hmiManager->poll();
 
   if (millis() - lastSerial >= 1000) {
-    pwm_start(PA_9, 100, 64, RESOLUTION_7B_COMPARE_FORMAT);
-    pwm_start(PA_10, 100, 68, RESOLUTION_7B_COMPARE_FORMAT);
     Serial.print("State: "); Serial.println(StateData::debugStateName.c_str());
-    Serial.print("L / R: "); 
+    Serial.print("LF L/R: "); 
     Serial.print(StateData::reflectances::lineLeft); Serial.print(", ");
     Serial.print(StateData::reflectances::lineRight); Serial.print(", ");
+    Serial.print("Corr: "); Serial.print(StateData::reflectances::correction); Serial.print(", ");
+    Serial.print("Speed: "); Serial.print(StateData::driveSpeed); Serial.print(", ");
     Serial.print("Steer: "); Serial.print(StateData::driveSteer); Serial.print(", ");
     Serial.println();
     lastSerial = millis();

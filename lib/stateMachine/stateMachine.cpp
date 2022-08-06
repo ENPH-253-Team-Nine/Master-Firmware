@@ -9,7 +9,9 @@ StateMachine::StateEnum currentEnumState;
 
 StateMachine::StateManager::StateManager()
 {
-    currentState = new StateMachine::States::Startup();
+    // currentState = new StateMachine::States::Startup();
+    currentState = new StateMachine::States::NavByLine();
+
 }
 
 StateMachine::AbstractState *StateMachine::StateManager::getCurrentState()
@@ -25,6 +27,7 @@ std::string StateMachine::StateManager::getCurrentStateDebugName()
 void StateMachine::StateManager::poll()
 {
     currentState = currentState->evaluateTransition();
+    // currentState = new StateMachine::States::NavByLine();
 }
 
 /***** Actual States *****/
@@ -94,18 +97,11 @@ StateMachine::States::NavByLine::NavByLine()
 
 StateMachine::AbstractState *StateMachine::States::NavByLine::evaluateTransition()
 {
-    if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
     {
-        *StateData::state = StateMachine::StateEnum::Error;
-        StateMachine::States::Error* newState =  new StateMachine::States::Error();
-        StateData::debugStateName = newState->getDebugStateName();
-        return newState;
-    }
-    else
-    {
-        StateData::debugStateName = this->getDebugStateName();
-        *StateData::state = StateMachine::StateEnum::NavByLine;
+        currentEnumState = StateMachine::StateEnum::NavByLine;
+        StateData::state = &currentEnumState;
         return this;
+        
     }
 }
 

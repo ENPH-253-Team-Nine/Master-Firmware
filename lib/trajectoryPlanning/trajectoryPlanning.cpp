@@ -35,6 +35,7 @@ void TrajectoryManager::setup(){
     StateData::reflectances::kd = line_kd_default;
     StateData::reflectances::setpoint = line_setpoint_default;
     StateData::reflectances::lasterror = 0;
+    StateData::reflectances::corrScale = line_corrScale_default;
 }
 
 /*** Various functions for determining speeds and steers ***/
@@ -46,17 +47,47 @@ void TrajectoryManager::allStop(){
     steer = 0;
 }
 
+// void TrajectoryManager::navigateByLine() {
+//     int error = (StateData::reflectances::lineLeft - StateData::reflectances::lineRight) - StateData::reflectances::setpoint;
+//     int p = StateData::reflectances::kp*error;
+//     int d = StateData::reflectances::kd*(error-StateData::reflectances::lasterror);
+
+//     StateData::reflectances::lasterror = error;
+//     int correction = p + d;
+
+//     speed = TrajectoryManager::line_speed_default;
+
+//     int8_t _steer = (float)speed*(float)correction/((float)StateData::reflectances::corrScale);
+//     StateData::reflectances::correction = correction;
+//     if (_steer > 127) _steer = 127;
+//     else if (_steer < -127) _steer = -127;
+
+//     steer = _steer;
+// }
+
 void TrajectoryManager::navigateByLine() {
-    int error = (StateData::reflectances::lineLeft - StateData::reflectances::lineRight) - StateData::reflectances::setpoint;
+    int leftThresh = 420;
+    int rightThresh = 85;
+    int error = 0;
+
+    if (StateData::reflectances::lineLeft > leftThresh && StateData::reflectances::lineRight > rightThresh) {
+        error = 0;
+    } else if (StateData::reflectances::lineLeft > leftThresh && StateData::reflectances::lineRight <= rightThresh) {
+        error = 1;
+    } else if (StateData::reflectances::lineLeft <= leftThresh && StateData::reflectances::lineRight > rightThresh) {
+        error = -1;
+    } 
+
     int p = StateData::reflectances::kp*error;
     int d = StateData::reflectances::kd*(error-StateData::reflectances::lasterror);
 
     StateData::reflectances::lasterror = error;
-    float correction = p + d;
+    int correction = p + d;
 
     speed = TrajectoryManager::line_speed_default;
 
-    int _steer = (float)speed*correction/1000.0;
+    int8_t _steer = (float)speed*(float)correction/((float)StateData::reflectances::corrScale);
+    StateData::reflectances::correction = correction;
     if (_steer > 127) _steer = 127;
     else if (_steer < -127) _steer = -127;
 
