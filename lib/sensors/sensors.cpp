@@ -60,7 +60,7 @@ void ReflectanceSensor::setup(){
 }
 
 void ReflectanceSensor::read(){
-    *((double *) storeLocation) = analogRead(pin);
+    *((int *) storeLocation) = analogRead(pin);
 }
 
 /* Hall Effect */

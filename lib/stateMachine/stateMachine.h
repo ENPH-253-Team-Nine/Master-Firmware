@@ -44,6 +44,7 @@ namespace StateMachine
 
         class NavByLine : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
             NavByLine();

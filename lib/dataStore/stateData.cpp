@@ -14,14 +14,18 @@ double StateData::IR::rightIRStrength;
 
 sensors::SwitchState StateData::switches::clawLimitSwitch;
 
-double StateData::reflectances::clawReflectance;
+int StateData::reflectances::clawReflectance;
 
 int StateData::reflectances::lineLeft;
 int StateData::reflectances::lineRight;
-float StateData::reflectances::kp;
-float StateData::reflectances::kd;
+int StateData::reflectances::kp;
+int StateData::reflectances::kd;
+int StateData::reflectances::corrScale;
 int StateData::reflectances::setpoint; 
 int StateData::reflectances::lasterror;
+
+int StateData::reflectances::correction;
+
 
 
 double StateData::magnets::clawHall;
