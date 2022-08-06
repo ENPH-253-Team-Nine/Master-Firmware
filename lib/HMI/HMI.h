@@ -51,6 +51,7 @@ namespace HMI{
             SETTING_LINECSCALE,
             SETTING_LINELTHRESH,
             SETTING_LINERTHRESH,
+            SETTING_LINECORCOEFF,
             _LENGTH
         };
 

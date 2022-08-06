@@ -99,6 +99,7 @@ namespace StateData{
                 int lineCScale;
                 int lineLThresh;
                 int lineRThresh;
+                int lineCorCoeff;
 
                 int idolWidth_mm;
             } StoredSettings;
