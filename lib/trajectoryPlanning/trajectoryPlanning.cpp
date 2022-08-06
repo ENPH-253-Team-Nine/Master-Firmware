@@ -73,9 +73,9 @@ void TrajectoryManager::navigateByLine() {
     if (StateData::reflectances::lineLeft > StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh) {
         error = 0;
     } else if (StateData::reflectances::lineLeft > StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight <= StateData::persistent::storedSettings.lineRThresh) {
-        error = 1;
-    } else if (StateData::reflectances::lineLeft <= StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh) {
         error = -1;
+    } else if (StateData::reflectances::lineLeft <= StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh) {
+        error = 1;
     } 
 
     int p = StateData::persistent::storedSettings.lineKP*error;
