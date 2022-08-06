@@ -18,6 +18,11 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_PERSISTTWO] = new IntSetting(&StateData::persistent::storedSettings.storedSetting2, 1024, -1024, 0, "Persist 2", displayHandler);
     settings[settingsEnum::SETTING_PERSISTTHREE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting3, 1024, -1024, 0, "Persist 3", displayHandler);
     settings[settingsEnum::SETTING_STOREBUTTON] = new ButtonSetting(StateData::persistent::storeInMemory, "Write EEPROM", displayHandler);
+    settings[settingsEnum::SETTING_LINEKP] = new IntSetting(&StateData::persistent::storedSettings.lineKP, 100, 0, 10, "line KP", displayHandler);
+    settings[settingsEnum::SETTING_LINEKD] = new IntSetting(&StateData::persistent::storedSettings.lineKD, 100, 0, 10, "line KD", displayHandler);
+    settings[settingsEnum::SETTING_LINECSCALE] = new IntSetting(&StateData::persistent::storedSettings.lineCScale, 1000000, 1, 1000, "line C Scale", displayHandler);
+    settings[settingsEnum::SETTING_LINELTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineLThresh, 1024, 1, 420, "line L thresh", displayHandler);
+    settings[settingsEnum::SETTING_LINERTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineRThresh, 1024, 1, 85, "line R thresh", displayHandler);
 }
 
 void HMIManager::setup()
