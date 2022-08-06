@@ -12,6 +12,9 @@ int8_t StateData::driveSteer;
 double StateData::IR::leftIRStrength;
 double StateData::IR::rightIRStrength;
 
+int8_t StateData::rightMotorSpeed;
+int8_t StateData::leftMotorSpeed;
+
 sensors::SwitchState StateData::switches::clawLimitSwitch;
 
 int StateData::reflectances::clawReflectance;
