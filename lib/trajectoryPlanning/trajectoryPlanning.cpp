@@ -31,11 +31,11 @@ void TrajectoryManager::poll(){
 }
 
 void TrajectoryManager::setup(){
-    StateData::reflectances::kp = line_kp_default;
-    StateData::reflectances::kd = line_kd_default;
-    StateData::reflectances::setpoint = line_setpoint_default;
+    // StateData::persistent::storedSettings.lineKP = line_kp_default;
+    // StateData::persistent::storedSettings.lineKD = line_kd_default;
+    // StateData::reflectances::setpoint = line_setpoint_default;
     StateData::reflectances::lasterror = 0;
-    StateData::reflectances::corrScale = line_corrScale_default;
+    // StateData::reflectances::corrScale = line_corrScale_default;
 }
 
 /*** Various functions for determining speeds and steers ***/
@@ -66,27 +66,27 @@ void TrajectoryManager::allStop(){
 // }
 
 void TrajectoryManager::navigateByLine() {
-    int leftThresh = 420;
-    int rightThresh = 85;
+    // int leftThresh = 420;
+    // int rightThresh = 85;
     int error = 0;
 
-    if (StateData::reflectances::lineLeft > leftThresh && StateData::reflectances::lineRight > rightThresh) {
+    if (StateData::reflectances::lineLeft > StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh) {
         error = 0;
-    } else if (StateData::reflectances::lineLeft > leftThresh && StateData::reflectances::lineRight <= rightThresh) {
+    } else if (StateData::reflectances::lineLeft > StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight <= StateData::persistent::storedSettings.lineRThresh) {
         error = 1;
-    } else if (StateData::reflectances::lineLeft <= leftThresh && StateData::reflectances::lineRight > rightThresh) {
+    } else if (StateData::reflectances::lineLeft <= StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh) {
         error = -1;
     } 
 
-    int p = StateData::reflectances::kp*error;
-    int d = StateData::reflectances::kd*(error-StateData::reflectances::lasterror);
+    int p = StateData::persistent::storedSettings.lineKP*error;
+    int d = StateData::persistent::storedSettings.lineKD*(error-StateData::reflectances::lasterror);
 
     StateData::reflectances::lasterror = error;
     int correction = p + d;
 
     speed = TrajectoryManager::line_speed_default;
 
-    int8_t _steer = (float)speed*(float)correction/((float)StateData::reflectances::corrScale);
+    int8_t _steer = (float)speed*(float)correction/((float)StateData::persistent::storedSettings.lineCScale);
     StateData::reflectances::correction = correction;
     if (_steer > 127) _steer = 127;
     else if (_steer < -127) _steer = -127;
