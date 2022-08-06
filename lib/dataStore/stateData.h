@@ -92,6 +92,7 @@ namespace StateData{
                 int lineCScale;
                 int lineLThresh;
                 int lineRThresh;
+                int lineCorCoeff;
             } StoredSettings;
 
             extern StoredSettings storedSettings;

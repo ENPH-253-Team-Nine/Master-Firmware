@@ -23,6 +23,7 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_LINECSCALE] = new IntSetting(&StateData::persistent::storedSettings.lineCScale, 1000000, 1, 10, "line C Scale", displayHandler);
     settings[settingsEnum::SETTING_LINELTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineLThresh, 1024, 1, 420, "line L thresh", displayHandler);
     settings[settingsEnum::SETTING_LINERTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineRThresh, 1024, 1, 85, "line R thresh", displayHandler);
+    settings[settingsEnum::SETTING_LINECORCOEFF] = new IntSetting(&StateData::persistent::storedSettings.lineCorCoeff, 5, 1, 2, "line corr coeff", displayHandler);
 }
 
 void HMIManager::setup()
