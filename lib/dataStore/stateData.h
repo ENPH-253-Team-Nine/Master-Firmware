@@ -78,6 +78,9 @@ namespace StateData{
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
 
+    extern int8_t leftMotorSpeed;
+    extern int8_t rightMotorSpeed;
+
     extern int testSettingOne;
     extern int testSettingTwo;
     extern int testSettingThree;
