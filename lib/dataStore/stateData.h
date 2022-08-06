@@ -94,6 +94,11 @@ namespace StateData{
                 int storedSetting1;
                 int storedSetting2;
                 int storedSetting3;
+                int lineKP;
+                int lineKD;
+                int lineCScale;
+                int lineLThresh;
+                int lineRThresh;
 
                 int idolWidth_mm;
             } StoredSettings;

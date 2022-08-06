@@ -46,6 +46,11 @@ namespace HMI{
             SETTING_PERSISTTHREE,
             IDOL_WIDTH,
             SETTING_STOREBUTTON,
+            SETTING_LINEKP,
+            SETTING_LINEKD,
+            SETTING_LINECSCALE,
+            SETTING_LINELTHRESH,
+            SETTING_LINERTHRESH,
             _LENGTH
         };
 
