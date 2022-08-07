@@ -100,6 +100,7 @@ namespace StateData{
                 int lineLThresh;
                 int lineRThresh;
                 int lineCorCoeff;
+                int manualMotorSpeed;
 
                 int idolWidth_mm;
             } StoredSettings;
