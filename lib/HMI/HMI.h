@@ -52,6 +52,7 @@ namespace HMI{
             SETTING_LINELTHRESH,
             SETTING_LINERTHRESH,
             SETTING_LINECORCOEFF,
+            SETTING_MANUALMOTORSPEED,
             _LENGTH
         };
 
