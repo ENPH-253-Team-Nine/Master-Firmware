@@ -9,6 +9,7 @@
 #include <bridge.h>
 #include <arm.h>
 #include <HMI.h>
+#include <serialComm.h>
 
 long int lastrun;
 unsigned long lastSerial;
@@ -35,6 +36,8 @@ arm::ArmManager *armManager = new arm::ArmManager();
 //servos::ServoManager *servoManager = new servos::ServoManager();
 HMI::HMIManager* hmiManager = new HMI::HMIManager();
 
+serialComm::SerialManager *serialManager = new serialComm::SerialManager();
+
 void setup()
 {
   lightManager->setup();
@@ -43,6 +46,7 @@ void setup()
   sensorManager->setup();
   //servoManager->setup();
   trajectoryManager->setup();
+  serialManager->setup();
 
   StateData::persistent::getFromMemory();
 
@@ -59,6 +63,7 @@ void setup()
 void loop()
 {
   sensorManager->poll();
+  serialManager->poll(); // Place before trajectory manager etc to update data first.
   if (*StateData::state == StateMachine::StateEnum::Error)
   {
     StateData::clawServoPos = 180;

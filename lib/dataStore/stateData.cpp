@@ -17,6 +17,12 @@ int8_t StateData::leftMotorSpeed;
 
 sensors::SwitchState StateData::switches::clawLimitSwitch;
 
+bool SerialFlags::deployBridge;
+bool SerialFlags::rotateSonarPlatform;
+
+SerialFlags::BridgeFlags SerialFlags::bridgeFlags; //Type is defined in SerialFlags too.
+SerialFlags::PlatformFlags SerialFlags::platformFlags;
+
 int StateData::reflectances::clawReflectance;
 
 int StateData::reflectances::lineLeft;
@@ -26,9 +32,12 @@ int StateData::reflectances::kd;
 int StateData::reflectances::corrScale;
 int StateData::reflectances::setpoint; 
 int StateData::reflectances::lasterror;
-
 int StateData::reflectances::correction;
 
+int StateData::reflectances::edgeReflectanceFL;
+int StateData::reflectances::edgeReflectanceFR;
+int StateData::reflectances::edgeReflectanceBL;
+int StateData::reflectances::edgeReflectanceBR;
 
 
 double StateData::magnets::clawHall;
@@ -39,6 +48,8 @@ uint8_t armServoPos;
 uint8_t clawServoPos;   
 uint8_t StateData::elbowServoPos;
 uint8_t StateData::clawServoPos;   
+
+int StateData::sonar::sonarObjectAngle;
 
 int StateData::testSettingOne;
 int StateData::testSettingTwo;
