@@ -128,8 +128,6 @@ namespace sensors
             CLAW_LIMIT_SWITCH,
             CLAW_REFLECT,
             CLAW_HALL_EFFECT,
-            LINE_LEFT,
-            LINE_RIGHT,
             _LENGTH_POLLED
         };
 

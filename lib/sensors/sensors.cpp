@@ -165,18 +165,16 @@ SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::CLAW_LIMIT_SWITCH] = new Switch(&StateData::switches::clawLimitSwitch, PB13);
     polledSensors[polledSensorEnum::CLAW_REFLECT] = new ReflectanceSensor(&StateData::reflectances::clawReflectance,PA5);
     polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
-    polledSensors[polledSensorEnum::LINE_LEFT] = new ReflectanceSensor(&StateData::reflectances::lineLeft, PA2);
-    polledSensors[polledSensorEnum::LINE_RIGHT] = new ReflectanceSensor(&StateData::reflectances::lineRight, PA4);
 
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 
     //encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
     //encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
 
-    interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PA11, false);
-    interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingLevel, PA12, true);
-    interruptedSensors[interruptSensorEnum::HMI_3] = new Button(&StateData::HMI::settingLevel, PA15, false);
-    interruptedSensors[interruptSensorEnum::HMI_4] = new Button(&StateData::HMI::settingSelectIndex, PB3, true);
+    // interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PA11, false);
+    // interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingLevel, PA12, true);
+    // interruptedSensors[interruptSensorEnum::HMI_3] = new Button(&StateData::HMI::settingLevel, PA15, false);
+    // interruptedSensors[interruptSensorEnum::HMI_4] = new Button(&StateData::HMI::settingSelectIndex, PB3, true);
 
 
 }
@@ -195,10 +193,10 @@ void SensorManager::setup(){
     // for(AbstractInterruptSensor* sensor : interruptedSensors){
     //     sensor->setup();
     // }
-    interruptedSensors[interruptSensorEnum::HMI_1] ->setup();
-    interruptedSensors[interruptSensorEnum::HMI_2] ->setup();
-    interruptedSensors[interruptSensorEnum::HMI_3] ->setup();
-    interruptedSensors[interruptSensorEnum::HMI_4] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_1] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_2] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_3] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_4] ->setup();
 
     //for(Encoder* sensor : encoders){
     //    sensor->setup();
