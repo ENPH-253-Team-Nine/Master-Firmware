@@ -7,8 +7,8 @@ AbstractPolledSensor::AbstractPolledSensor(void *storeLocation, int pin){
     this->pin = pin;
 }
 
-void AbstractPolledSensor::setup(){
-    pinMode(pin, INPUT_PULLUP);
+void AbstractPolledSensor::setup(int inputType){
+    pinMode(pin, inputType);
 }
 
 AbstractInterruptSensor::AbstractInterruptSensor(void *storeLocation, int pin){
@@ -25,7 +25,7 @@ void AbstractInterruptSensor::setup(){
 IRFrequency::IRFrequency(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void IRFrequency::setup() {
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void IRFrequency::read(){
@@ -37,7 +37,7 @@ void IRFrequency::read(){
 Switch::Switch(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void Switch::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void Switch::read(){
@@ -56,11 +56,11 @@ void Switch::read(){
 ReflectanceSensor::ReflectanceSensor(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void ReflectanceSensor::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void ReflectanceSensor::read(){
-    *((double *) storeLocation) = analogRead(pin);
+    *((int *) storeLocation) = analogRead(pin);
 }
 
 /* Hall Effect */
@@ -68,7 +68,7 @@ void ReflectanceSensor::read(){
 HallSensor::HallSensor(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin) {}
 
 void HallSensor::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void HallSensor::read(){
@@ -142,7 +142,7 @@ void Encoder::EncoderInterrupt::setup(){
 Encoder::EncoderPoll::EncoderPoll(Encoder::EncoderValue* storeData, int pin) : AbstractPolledSensor(storeData, pin) {}
 
 void Encoder::EncoderPoll::setup(){
-    AbstractPolledSensor::setup();
+    AbstractPolledSensor::setup(INPUT);
 }
 
 void Encoder::EncoderPoll::read(){
@@ -171,10 +171,10 @@ SensorManager::SensorManager(){
     //encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);
     //encoders[encoderEnum::ENCODER_RIGHT] = new Encoder(&StateData::encoders::rightEncoderCount,PA2,PA4);
 
-    interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PA11, false);
-    interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingLevel, PA12, true);
-    interruptedSensors[interruptSensorEnum::HMI_3] = new Button(&StateData::HMI::settingLevel, PA15, false);
-    interruptedSensors[interruptSensorEnum::HMI_4] = new Button(&StateData::HMI::settingSelectIndex, PB3, true);
+    // interruptedSensors[interruptSensorEnum::HMI_1] = new Button(&StateData::HMI::settingSelectIndex, PA11, false);
+    // interruptedSensors[interruptSensorEnum::HMI_2] = new Button(&StateData::HMI::settingLevel, PA12, true);
+    // interruptedSensors[interruptSensorEnum::HMI_3] = new Button(&StateData::HMI::settingLevel, PA15, false);
+    // interruptedSensors[interruptSensorEnum::HMI_4] = new Button(&StateData::HMI::settingSelectIndex, PB3, true);
 
 
 }
@@ -187,16 +187,16 @@ void SensorManager::poll(){
 
 void SensorManager::setup(){
     for(AbstractPolledSensor* sensor : polledSensors){
-        sensor->setup();
+        sensor->setup(INPUT);
     }
 
     // for(AbstractInterruptSensor* sensor : interruptedSensors){
     //     sensor->setup();
     // }
-    interruptedSensors[interruptSensorEnum::HMI_1] ->setup();
-    interruptedSensors[interruptSensorEnum::HMI_2] ->setup();
-    interruptedSensors[interruptSensorEnum::HMI_3] ->setup();
-    interruptedSensors[interruptSensorEnum::HMI_4] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_1] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_2] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_3] ->setup();
+    // interruptedSensors[interruptSensorEnum::HMI_4] ->setup();
 
     //for(Encoder* sensor : encoders){
     //    sensor->setup();

@@ -10,8 +10,8 @@ DriveMotor::DriveMotor(PinName forwardPin, PinName reversePin){
 }
 
 void DriveMotor::setup(){
-    pinMode(PA0,OUTPUT);
-    pinMode(PA1,OUTPUT);
+    pinMode(forwardPin,OUTPUT);
+    pinMode(reversePin,OUTPUT);
 }
 
 void DriveMotor::setDirection(DriveMotor::Direction direction){
@@ -59,8 +59,8 @@ void DriveMotor::updatePWMs(){
 
 
 MotorManager::MotorManager(){
-    motors[DRIVE_LEFT] = new DriveMotor(PA_0, PA_1);
-    motors[DRIVE_RIGHT] = new DriveMotor(PA_2, PA_3);
+    motors[DRIVE_LEFT] = new DriveMotor(PA_9, PA_1);
+    motors[DRIVE_RIGHT] = new DriveMotor(PA_0, PA_10);
 }
 
 MotorManager::~MotorManager(){
@@ -77,18 +77,30 @@ void MotorManager::setup(){
 
 void MotorManager::poll(){
 
-    int8_t rightSpeed, leftSpeed;
-    
-    if(StateData::driveSpeed+StateData::driveSteer > INT8_MAX){
+    int16_t rightSpeed, leftSpeed;
+    leftSpeed = StateData::persistent::storedSettings.manualMotorSpeed + StateData::driveSteer;
+    rightSpeed = StateData::persistent::storedSettings.manualMotorSpeed - StateData::driveSteer;
+
+
+    if(leftSpeed>INT8_MAX){
         leftSpeed = INT8_MAX;
-        rightSpeed = INT8_MAX-2*StateData::driveSteer;
-    } else if(StateData::driveSpeed+StateData::driveSteer < INT8_MIN){
+        rightSpeed-=(leftSpeed-INT8_MAX);
+    } 
+    if(rightSpeed>INT8_MAX){
         rightSpeed = INT8_MAX;
-        leftSpeed = INT8_MAX-2*StateData::driveSteer;
-    } else {
-        leftSpeed = StateData::driveSpeed+StateData::driveSteer;
-        rightSpeed = StateData::driveSpeed - StateData::driveSteer;
+        leftSpeed-=(rightSpeed-INT8_MAX);
     }
+    if(leftSpeed<INT8_MIN){
+        leftSpeed = INT8_MIN;
+        rightSpeed+=(leftSpeed-INT8_MIN);
+    }
+    if(rightSpeed<INT8_MIN){
+        rightSpeed = INT8_MIN;
+        leftSpeed+=(rightSpeed-INT8_MIN);
+    }
+
+    StateData::leftMotorSpeed = leftSpeed;
+    StateData::rightMotorSpeed = rightSpeed;
 
     if(rightSpeed >= 0){
         motors[DRIVE_RIGHT]->setSpeed(rightSpeed);

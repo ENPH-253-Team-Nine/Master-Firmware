@@ -20,7 +20,7 @@ namespace sensors
         AbstractPolledSensor(void *storeLocation, int pin);
         void* storeLocation;
         int pin;
-        void setup(); 
+        void setup(int inputType); 
     private:
         
         virtual void read() = 0;

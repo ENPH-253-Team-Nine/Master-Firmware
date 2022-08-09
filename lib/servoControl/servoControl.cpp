@@ -15,8 +15,8 @@ ServoManager::~ServoManager()
 void ServoManager::setup()
 {
 
-    elbowServo->attach(PA11);
-    clawServo->attach(PA10);
+    elbowServo->attach(PB14);
+    clawServo->attach(PB15);
 }
 
 void ServoManager::poll()
