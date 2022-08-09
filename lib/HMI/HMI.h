@@ -35,15 +35,6 @@ namespace HMI{
 
         enum settingsEnum{
             SETTING_DISPLAY_ENABLED,
-            SETTING_TESTONE,
-            SETTING_TESTTWO,
-            SETTING_TESTTHREE,
-            SETTING_TESTFOUR,
-            SETTING_TESTFIVE,
-            SETTING_TESTSIX,
-            SETTING_PERSISTONE,
-            SETTING_PERSISTTWO,
-            SETTING_PERSISTTHREE,
             IDOL_WIDTH,
             SETTING_STOREBUTTON,
             SETTING_LINEKP,
@@ -53,6 +44,11 @@ namespace HMI{
             SETTING_LINERTHRESH,
             SETTING_LINECORCOEFF,
             SETTING_MANUALMOTORSPEED,
+            SETTING_PRERAMPTIME,
+            SETTING_ONRAMPTIME,
+            SETTING_POSTRAMPTIME,
+            SETTING_SEEKLINESPEED,
+            SETTING_SEEKLINESTEER,
             _LENGTH
         };
 

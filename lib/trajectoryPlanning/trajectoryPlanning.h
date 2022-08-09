@@ -22,6 +22,8 @@ namespace trajectory{
 
             void allStop();
             void navigateByLine();
+            void navigateByLineRamp();
+            void seekLine();
 
             static constexpr int line_kp_default =  5.0;
             static constexpr int line_kd_default =  1.0;

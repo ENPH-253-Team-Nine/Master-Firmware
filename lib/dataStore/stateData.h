@@ -81,19 +81,9 @@ namespace StateData{
     extern int8_t leftMotorSpeed;
     extern int8_t rightMotorSpeed;
 
-    extern int testSettingOne;
-    extern int testSettingTwo;
-    extern int testSettingThree;
-    extern int testSettingFour;
-    extern int testSettingFive;
-    extern int testSettingSix;
-
     namespace persistent{
             typedef struct{
                 //remember your usual struct packing rules
-                int storedSetting1;
-                int storedSetting2;
-                int storedSetting3;
                 int lineKP;
                 int lineKD;
                 int lineCScale;
@@ -101,7 +91,11 @@ namespace StateData{
                 int lineRThresh;
                 int lineCorCoeff;
                 int manualMotorSpeed;
-
+                int preRampTime;
+                int onRampTime;
+                int postRampTime;
+                int seekLineSpeed;
+                int seekLineSteer;
                 int idolWidth_mm;
             } StoredSettings;
 
