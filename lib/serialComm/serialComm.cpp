@@ -42,7 +42,13 @@ void SerialManager::receiveData() {
 
     int bytesRead = Serial1.readBytes(recBuf, sizeof(*packet));
 
-    if (bytesRead == sizeof(*packet)) {
+    // for (int i = 0; i < sizeof(*packet); i+=2) {
+    //     int temp = recBuf[i];
+    //     recBuf[i] = recBuf[i+1];
+    //     recBuf[i+1] = temp;
+    // }
+
+    if (bytesRead >= 1) {
         packet = (struct DataPacket *)recBuf;
     }
 
