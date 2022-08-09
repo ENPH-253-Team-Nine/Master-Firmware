@@ -20,6 +20,7 @@ namespace trajectory{
             int8_t steer;
 
             void allStop();
+            void goToTreasure();
     };
 }
 

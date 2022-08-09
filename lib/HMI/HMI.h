@@ -45,6 +45,8 @@ namespace HMI{
             SETTING_PERSISTTWO,
             SETTING_PERSISTTHREE,
             IDOL_WIDTH,
+            SONAR_STEER_FACTOR,
+            SONAR_CENTER,
             SETTING_STOREBUTTON,
             _LENGTH
         };

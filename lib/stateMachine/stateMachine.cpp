@@ -198,6 +198,21 @@ std::string StateMachine::States::NavByIR::getDebugStateName()
     return "Nav By IR";
 }
 
+/** Go To Treasure **/
+StateMachine::States::GoToTreasure::GoToTreasure(){
+    this->stateEntryTime = millis();
+}
+
+StateMachine::AbstractState *StateMachine::States::GoToTreasure::evaluateTransition(){
+    *StateData::state = StateMachine::StateEnum::GoToTreasure;
+    StateData::debugStateName = this->getDebugStateName();
+    return this;
+}
+
+std::string StateMachine::States::GoToTreasure::getDebugStateName(){
+    return "Go To Treas";
+}
+
 /** Error **/
 StateMachine::States::Error::Error()
 {

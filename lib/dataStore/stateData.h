@@ -63,7 +63,7 @@ namespace StateData{
     namespace sonar{
         extern int sonarSweepSize; //length of array
         extern double sonarSweepAngularResolution; //degrees per entry
-        extern int sonarSweep[160];
+        extern int sonarSweepTarget;
     }
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
@@ -83,6 +83,8 @@ namespace StateData{
                 int storedSetting3;
 
                 int idolWidth_mm;
+                int sonarSteerFactor;
+                int sonarCenter;
             } StoredSettings;
 
             extern StoredSettings storedSettings;

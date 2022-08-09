@@ -85,6 +85,16 @@ namespace StateMachine
             long int stateEntryTime;
         };
 
+        class GoToTreasure : public AbstractState
+        {
+        public:
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            GoToTreasure();
+        private:
+            long int stateEntryTime;
+        };
+
         /*class TerminalMiniTreasureGuidance : public State{
             virtual State* evaluateTransition();
             const std::string debugStateName = "TerminalMiniTreasureGuidance";};
@@ -138,6 +148,7 @@ namespace StateMachine
         /*TraverseArch,*/
         SeekIR,
         NavByIR,
+        GoToTreasure,
         /*TerminalMiniTreasureGuidance,
         MiniTreasureCapture,
         SeekBridgeAlignment,

@@ -32,7 +32,7 @@ int StateData::testSettingFour;
 int StateData::testSettingFive;
 int StateData::testSettingSix;
 
-
+int StateData::sonar::sonarSweepTarget;
 
 int8_t StateData::HMI::settingSelectIndex;
 int8_t StateData::HMI::settingLevel;
