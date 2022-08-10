@@ -44,7 +44,7 @@ void setup()
   //servoManager->setup();
   trajectoryManager->setup();
 
-  StateData::persistent::getFromMemory();
+  // StateData::persistent::getFromMemory();
 
 
 
@@ -52,6 +52,20 @@ void setup()
   lastrun = millis();
   lastSerial = millis();
   //pinMode(PB3, OUTPUT);
+
+  StateData::persistent::storedSettings.lineKP = 5;
+  StateData::persistent::storedSettings.lineKD = 1;
+  StateData::persistent::storedSettings.lineCScale = 10;
+  StateData::persistent::storedSettings.lineLThresh = 420;
+  StateData::persistent::storedSettings.lineRThresh = 85;
+  StateData::persistent::storedSettings.lineCorCoeff = 3;
+  StateData::persistent::storedSettings.manualMotorSpeed = 70;
+  StateData::persistent::storedSettings.preRampTime = 2000;
+  StateData::persistent::storedSettings.onRampTime = 3000;
+  StateData::persistent::storedSettings.postRampTime = 1000;
+  StateData::persistent::storedSettings.seekLineSpeed = 60;
+  StateData::persistent::storedSettings.seekLineSteer = 10;
+  StateData::persistent::storedSettings.idolWidth_mm = 50;
 
 
 }
