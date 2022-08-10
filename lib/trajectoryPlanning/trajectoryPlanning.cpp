@@ -31,11 +31,19 @@ void TrajectoryManager::poll()
 
 void TrajectoryManager::setup()
 {
-    // StateData::persistent::storedSettings.lineKP = line_kp_default;
+    StateData::persistent::storedSettings.lineKP = line_kp_default;
     // StateData::persistent::storedSettings.lineKD = line_kd_default;
     // StateData::reflectances::setpoint = line_setpoint_default;
     StateData::reflectances::lasterror = 0;
     // StateData::reflectances::corrScale = line_corrScale_default;
+
+    StateData::persistent::storedSettings.lineKP = line_kp_default;
+    StateData::persistent::storedSettings.lineKD = line_kd_default;
+    StateData::persistent::storedSettings.lineCScale = 10;
+    StateData::persistent::storedSettings.lineLThresh = 420;
+    StateData::persistent::storedSettings.lineRThresh = 85;
+    StateData::persistent::storedSettings.lineCorCoeff = 3;
+    StateData::persistent::storedSettings.manualMotorSpeed = 70;
 }
 
 /*** Various functions for determining speeds and steers ***/

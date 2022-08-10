@@ -33,13 +33,13 @@ bridge::BridgeManager *bridgeManager = new bridge::BridgeManager();
 
 arm::ArmManager *armManager = new arm::ArmManager();
 //servos::ServoManager *servoManager = new servos::ServoManager();
-HMI::HMIManager* hmiManager = new HMI::HMIManager();
+// HMI::HMIManager* hmiManager = new HMI::HMIManager();
 
 void setup()
 {
   lightManager->setup();
   motorManager->setup();
-  hmiManager->setup(); //hmi manager must be setup before sensor manager for reasons
+  // hmiManager->setup(); //hmi manager must be setup before sensor manager for reasons
   sensorManager->setup();
   //servoManager->setup();
   trajectoryManager->setup();
@@ -75,7 +75,7 @@ void loop()
   bridgeManager->poll();
   armManager->poll();
   //servoManager->poll();
-  hmiManager->poll();
+  // hmiManager->poll();
 
   if (millis() - lastSerial >= 1000) {
     Serial.print("State: "); Serial.println(StateData::debugStateName.c_str());
