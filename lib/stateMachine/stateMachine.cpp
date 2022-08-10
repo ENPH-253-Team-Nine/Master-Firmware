@@ -129,10 +129,10 @@ StateMachine::States::SeekTreasure::SeekTreasure()
 StateMachine::AbstractState *StateMachine::States::SeekTreasure::evaluateTransition()
 {
     //PLACEHOLDER
-    if (millis() > stateEntryTime + 5000 /* arbitrary constant, change later to when in position for claw*/)
+    if (StateData::sonar::sonarDistance_cm<=20 /* arbitrary constant, change later to when in position for claw*/)
     {
-        *StateData::state = StateMachine::StateEnum::PickupTreasure;
-        StateMachine::AbstractState* newState = new StateMachine::States::PickupTreasure();
+        *StateData::state = StateMachine::StateEnum::TurnRToTreasure;
+        StateMachine::AbstractState* newState = new StateMachine::States::TurnRToTreasure();
         StateData::debugStateName = newState->getDebugStateName();
         return newState;
     }
@@ -340,4 +340,27 @@ StateMachine::AbstractState *StateMachine::States::Error::evaluateTransition()
 std::string StateMachine::States::Error::getDebugStateName()
 {
     return "Error";
+}
+
+/** Turn R to Treasure **/
+StateMachine::States::TurnRToTreasure::TurnRToTreasure(){
+    this->stateEntryTime = millis();
+}
+
+StateMachine::AbstractState* StateMachine::States::TurnRToTreasure::evaluateTransition(){
+    if(millis() >= stateEntryTime + 2500)
+    {
+        *StateData::state = StateMachine::StateEnum::SeekLine;
+        AbstractState* newState = new StateMachine::States::SeekLine();
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
+    } else {
+        *StateData::state = StateMachine::StateEnum::TurnRToTreasure;
+        StateData::debugStateName = this->getDebugStateName();
+        return this;
+    }
+}
+
+std::string StateMachine::States::TurnRToTreasure::getDebugStateName(){
+    return "treas R turn";
 }

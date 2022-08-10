@@ -74,12 +74,17 @@ namespace StateData{
         extern int sonarSweepSize; //length of array
         extern double sonarSweepAngularResolution; //degrees per entry
         extern int sonarSweep[160];
+        extern int sonarDistance_cm;
     }
     extern uint8_t elbowServoPos;
     extern uint8_t clawServoPos;
 
     extern int8_t leftMotorSpeed;
     extern int8_t rightMotorSpeed;
+
+
+    extern int treasureRSteer;
+    extern int treasureRSpeed;
 
     namespace persistent{
             typedef struct{

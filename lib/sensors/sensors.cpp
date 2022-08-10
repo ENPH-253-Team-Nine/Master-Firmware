@@ -75,6 +75,26 @@ void HallSensor::read(){
     *((double *) storeLocation) = analogRead(pin);
 }
 
+/* Sonar */
+Sonar::Sonar(void *storeLocation, int pin) : AbstractPolledSensor(storeLocation, pin){
+    this->echoPin = PB0;
+    this->maxDist = 20;
+    this->sonar = new NewPing(this->pin, this->echoPin, this->maxDist);
+}
+
+void Sonar::setup(){
+    pingTimer = millis();
+}
+//this is what's called every loop
+void Sonar::read(){
+    if(millis()>= pingTimer){
+        pingTimer+=pingSpeed_ms;
+        *((int *) storeLocation) = sonar->ping_cm(20);
+    }
+}
+
+
+
 /* Button */
 
 Button::Button(void *storeLocation, int pin, bool incrementor) : AbstractInterruptSensor(storeLocation, pin) {
@@ -167,7 +187,7 @@ SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
     polledSensors[polledSensorEnum::LINE_LEFT] = new ReflectanceSensor(&StateData::reflectances::lineLeft, PA2);
     polledSensors[polledSensorEnum::LINE_RIGHT] = new ReflectanceSensor(&StateData::reflectances::lineRight, PA4);
-
+    polledSensors[polledSensorEnum::SONAR] = new Sonar(&StateData::sonar::sonarDistance_cm, PA3);
     //not dealing with interrupts at the moment, don't know what to do with the HMI
 
     //encoders[encoderEnum::ENCODER_LEFT] = new Encoder(&StateData::encoders::leftEncoderCount,PA3,PA6);

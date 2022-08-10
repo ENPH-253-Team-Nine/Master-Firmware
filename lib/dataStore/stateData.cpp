@@ -30,7 +30,7 @@ int StateData::reflectances::lasterror;
 
 int StateData::reflectances::correction;
 
-
+int StateData::sonar::sonarDistance_cm;
 
 double StateData::magnets::clawHall;
 
@@ -41,6 +41,9 @@ uint8_t clawServoPos;
 uint8_t StateData::elbowServoPos;
 uint8_t StateData::clawServoPos;   
 
+
+int StateData::treasureRSpeed = 60;
+int StateData::treasureRSteer = 2;
 
 int8_t StateData::HMI::settingSelectIndex;
 int8_t StateData::HMI::settingLevel;

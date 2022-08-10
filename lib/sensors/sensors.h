@@ -3,6 +3,7 @@
 
 #include <Arduino.h>
 #include <stateData.h>
+#include <newPing.h>
 
 namespace sensors
 {
@@ -36,6 +37,22 @@ namespace sensors
         virtual void setup(); 
     private:
         virtual void handler() = 0;
+    };
+
+    class Sonar : private AbstractPolledSensor
+    {
+        friend SensorManager;
+    private:
+        Sonar(void *storeLocation, int pin); //pin is trigger pin
+        void setup();
+        void read();
+
+        int maxDist;
+        int echoPin;
+        long int pingTimer;
+        int startupDelay_ms = 75;
+        int pingSpeed_ms = 50;
+        NewPing* sonar;
     };
 
     class IRFrequency : private AbstractPolledSensor
@@ -130,6 +147,7 @@ namespace sensors
             CLAW_HALL_EFFECT,
             LINE_LEFT,
             LINE_RIGHT,
+            SONAR,
             _LENGTH_POLLED
         };
 

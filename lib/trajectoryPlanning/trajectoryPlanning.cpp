@@ -172,3 +172,8 @@ void TrajectoryManager::seekLine()
 {
     
 }
+
+void TrajectoryManager::turnRightToTreasure(){
+    steer = StateData::treasureRSteer;
+    speed = StateData::treasureRSpeed;
+}
