@@ -18,8 +18,17 @@ void TrajectoryManager::poll()
     case StateMachine::StateEnum::Startup:
         allStop();
         break;
+    case StateMachine::StateEnum::NavByLineRamp:
+        navigateByLineRamp();
+        break;
+    case StateMachine::StateEnum::NavByLinePost:
+        navigateByLine();
+        break;
     case StateMachine::StateEnum::NavByLine:
         navigateByLine();
+        break;
+    case StateMachine::StateEnum::SeekLine:
+        seekLine();
         break;
         // add more cases as neccesary.
         // presumably that means enabling more states.
@@ -117,4 +126,54 @@ void TrajectoryManager::navigateByLine()
         _steer = -127;
 
     steer = _steer;
+}
+
+void TrajectoryManager::navigateByLineRamp()
+{
+    // int leftThresh = 420;
+    // int rightThresh = 85;
+    int error = 0;
+
+    if (StateData::reflectances::lineLeft > StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh)
+    {
+        error = 0;
+    }
+    else if (StateData::reflectances::lineLeft > StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight <= StateData::persistent::storedSettings.lineRThresh)
+    {
+        error = -1;
+    }
+    else if (StateData::reflectances::lineLeft <= StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight > StateData::persistent::storedSettings.lineRThresh)
+    {
+        error = 1;
+    }
+    else if (StateData::reflectances::lineLeft <= StateData::persistent::storedSettings.lineLThresh && StateData::reflectances::lineRight <= StateData::persistent::storedSettings.lineRThresh)
+    {
+        if (abs(StateData::reflectances::lasterror) <= 1) {
+            error = StateData::reflectances::lasterror * StateData::persistent::storedSettings.lineCorCoeff;
+        } else {
+            error = StateData::reflectances::lasterror;
+        }
+    }
+
+    int p = StateData::persistent::storedSettings.lineKP * error;
+    int d = StateData::persistent::storedSettings.lineKD * (error - StateData::reflectances::lasterror);
+
+    StateData::reflectances::lasterror = error;
+    int correction = p + d;
+
+    speed = StateData::persistent::storedSettings.manualMotorSpeed + 10;
+
+    int8_t _steer = (float)speed * (float)correction / ((float)StateData::persistent::storedSettings.lineCScale);
+    StateData::reflectances::correction = correction;
+    if (_steer > 127)
+        _steer = 127;
+    else if (_steer < -127)
+        _steer = -127;
+
+    steer = _steer;
+}
+
+void TrajectoryManager::seekLine()
+{
+    
 }

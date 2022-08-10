@@ -32,16 +32,6 @@ namespace StateMachine
             long int stateEntryTime;
         };
 
-        class SeekLine : public AbstractState
-        {
-            AbstractState *evaluateTransition();
-            std::string getDebugStateName();
-            SeekLine();
-
-        private:
-            long int stateEntryTime;
-        };
-
         class NavByLine : public AbstractState
         {
         public:
@@ -53,15 +43,62 @@ namespace StateMachine
             long int stateEntryTime;
         };
 
-        class RampTransition : public AbstractState
+        class NavByLineRamp : public AbstractState
         {
+        public:
             AbstractState *evaluateTransition();
             std::string getDebugStateName();
-            RampTransition();
+            NavByLineRamp();
 
         private:
             long int stateEntryTime;
         };
+
+        class SeekTreasure : public AbstractState
+        {
+        public:
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            SeekTreasure();
+
+        private:
+            long int stateEntryTime;
+        };
+
+        class PickupTreasure : public AbstractState
+        {
+        public:
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            PickupTreasure();
+
+        private:
+            long int stateEntryTime;
+        };
+
+        class SeekLine : public AbstractState
+        {
+        public:
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            SeekLine();
+
+        private:
+            long int stateEntryTime;
+        };
+
+        class NavByLinePost : public AbstractState
+        {
+        public:
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            NavByLinePost();
+
+        private:
+            long int stateEntryTime;
+        };
+
+
         /*class TraverseArch : public State{
             virtual State* evaluateTransition();
             const std::string debugStateName = "TraverseArch";};*/
@@ -133,9 +170,13 @@ namespace StateMachine
     enum class StateEnum
     {
         Startup,
-        SeekLine,
         NavByLine,
-        RampTransition,
+        NavByLineRamp,
+        SeekTreasure,
+        PickupTreasure,
+        SeekLine,
+        NavByLinePost,
+        /*RampTransition,*/
         /*TraverseArch,*/
         SeekIR,
         NavByIR,

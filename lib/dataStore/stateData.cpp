@@ -40,14 +40,6 @@ uint8_t clawServoPos;
 uint8_t StateData::elbowServoPos;
 uint8_t StateData::clawServoPos;   
 
-int StateData::testSettingOne;
-int StateData::testSettingTwo;
-int StateData::testSettingThree;
-int StateData::testSettingFour;
-int StateData::testSettingFive;
-int StateData::testSettingSix;
-
-
 
 int8_t StateData::HMI::settingSelectIndex;
 int8_t StateData::HMI::settingLevel;

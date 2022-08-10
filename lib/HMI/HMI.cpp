@@ -11,15 +11,6 @@ HMIManager::HMIManager()
     internalSettingIndex = 2;
     settingDelta = 1;
     settings[settingsEnum::SETTING_DISPLAY_ENABLED] = new ButtonSetting([=]{displayOff();}, "Display Off", displayHandler);
-    settings[settingsEnum::SETTING_TESTONE] = new IntSetting(&StateData::testSettingOne, 1024, -1024, 0, "Test 1", displayHandler);
-    settings[settingsEnum::SETTING_TESTTWO] = new IntSetting(&StateData::testSettingTwo, 1024, -1024, 0, "Test 2", displayHandler);
-    settings[settingsEnum::SETTING_TESTTHREE] = new IntSetting(&StateData::testSettingThree, 1024, -1024, -1024, "Test 3", displayHandler);
-    settings[settingsEnum::SETTING_TESTFOUR] = new IntSetting(&StateData::testSettingFour, 1024, -1024, 0, "Test 4", displayHandler);
-    settings[settingsEnum::SETTING_TESTFIVE] = new IntSetting(&StateData::testSettingFive, 1024, -1024, -1024, "Test 5", displayHandler);
-    settings[settingsEnum::SETTING_TESTSIX] = new IntSetting(&StateData::testSettingSix, 1024, -1024, 0, "Test 6", displayHandler);
-    settings[settingsEnum::SETTING_PERSISTONE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting1, 1024, -1024, 0, "Persist 1", displayHandler);
-    settings[settingsEnum::SETTING_PERSISTTWO] = new IntSetting(&StateData::persistent::storedSettings.storedSetting2, 1024, -1024, 0, "Persist 2", displayHandler);
-    settings[settingsEnum::SETTING_PERSISTTHREE] = new IntSetting(&StateData::persistent::storedSettings.storedSetting3, 1024, -1024, 0, "Persist 3", displayHandler);
     settings[settingsEnum::IDOL_WIDTH] = new IntSetting(&StateData::persistent::storedSettings.idolWidth_mm, 100, 0, 0, "Idl sz (mm)", displayHandler);
     settings[settingsEnum::SETTING_STOREBUTTON] = new ButtonSetting(StateData::persistent::storeInMemory, "Write EEPROM", displayHandler);
     settings[settingsEnum::SETTING_LINEKP] = new IntSetting(&StateData::persistent::storedSettings.lineKP, 100, 0, 10, "line KP", displayHandler);
@@ -29,6 +20,11 @@ HMIManager::HMIManager()
     settings[settingsEnum::SETTING_LINERTHRESH] = new IntSetting(&StateData::persistent::storedSettings.lineRThresh, 1024, 1, 85, "line R thresh", displayHandler);
     settings[settingsEnum::SETTING_LINECORCOEFF] = new IntSetting(&StateData::persistent::storedSettings.lineCorCoeff, 5, 1, 2, "line corr coeff", displayHandler);
     settings[settingsEnum::SETTING_MANUALMOTORSPEED] = new IntSetting(&StateData::persistent::storedSettings.manualMotorSpeed, 127, -127, 70, "Override Speed", displayHandler);
+    settings[settingsEnum::SETTING_PRERAMPTIME] = new IntSetting(&StateData::persistent::storedSettings.preRampTime, 10000, 0, 2000, "Pre Ramp Time", displayHandler);
+    settings[settingsEnum::SETTING_ONRAMPTIME] = new IntSetting(&StateData::persistent::storedSettings.onRampTime, 10000, 0, 5000, "On Ramp Time", displayHandler);
+    settings[settingsEnum::SETTING_POSTRAMPTIME] = new IntSetting(&StateData::persistent::storedSettings.postRampTime, 20000, 0, 5000, "Post Ramp Time", displayHandler);
+    settings[settingsEnum::SETTING_SEEKLINESPEED] = new IntSetting(&StateData::persistent::storedSettings.seekLineSpeed, 0, -100, -50, "Seek Line Speed", displayHandler);
+    settings[settingsEnum::SETTING_SEEKLINESTEER] = new IntSetting(&StateData::persistent::storedSettings.seekLineSteer, 127, -127, 30, "Seek Line Steer", displayHandler);
 }
 
 void HMIManager::setup()
