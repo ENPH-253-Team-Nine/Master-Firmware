@@ -22,3 +22,5 @@ uint8_t armServoPos;
 uint8_t clawServoPos;   
 uint8_t StateData::elbowServoPos;
 uint8_t StateData::clawServoPos;   
+
+bool StateData::collectingTreasure;

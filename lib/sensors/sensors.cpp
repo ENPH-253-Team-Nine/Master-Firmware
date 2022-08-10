@@ -43,10 +43,10 @@ void Switch::setup(){
 void Switch::read(){
     switch(digitalRead(pin)){
         case HIGH:
-            *((SwitchState *) storeLocation) = SwitchState::CLOSED;
+            *((SwitchState *) storeLocation) = SwitchState::OPEN;
             break;
         case LOW:
-            *((SwitchState *) storeLocation) = SwitchState::OPEN;
+            *((SwitchState *) storeLocation) = SwitchState::CLOSED;
             break;
     }    
 }

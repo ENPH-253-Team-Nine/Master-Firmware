@@ -85,6 +85,17 @@ namespace StateMachine
             long int stateEntryTime;
         };
 
+        class GrabStash : public AbstractState
+        {
+        public:
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            GrabStash();
+
+        private:
+            long int stateEntryTime;
+        };
+
         /*class TerminalMiniTreasureGuidance : public State{
             virtual State* evaluateTransition();
             const std::string debugStateName = "TerminalMiniTreasureGuidance";};
@@ -139,15 +150,16 @@ namespace StateMachine
         SeekIR,
         NavByIR,
         /*TerminalMiniTreasureGuidance,
-        MiniTreasureCapture,
         SeekBridgeAlignment,
         DeployBridge,
         NavByFaith,
         TerminalBigTreasureGuidance,
-        BigTreasureCapture,
         SeekCPERM,
         ExecuteCPERM,
         Party,*/
+        TreasureApproach,
+        TreasureCapture,
+        GrabStash, 
         Error
     };
 

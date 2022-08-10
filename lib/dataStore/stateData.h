@@ -26,6 +26,8 @@ namespace StateData{
     extern int8_t driveSpeed;
     extern int8_t driveSteer;
 
+    extern bool collectingTreasure;
+
     namespace IR{
         extern double leftIRStrength;
         extern double rightIRStrength;

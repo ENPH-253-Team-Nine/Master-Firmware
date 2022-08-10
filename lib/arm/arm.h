@@ -3,6 +3,8 @@
 
 #include <stateData.h>
 #include <stateMachine.h>
+#include <sensors.h>
+#include <servoControl.h>
 
 namespace arm
 {
@@ -11,6 +13,7 @@ namespace arm
     public:
         //just using the default implicit constructor
         void poll();
+        void setup(servos::ServoManager *servoManager);
 
     private:
         void deployArm();
@@ -18,6 +21,16 @@ namespace arm
         void checkForBomb();
         void stowTreasure();
         void armIdle();
+        void clawClose();
+        void grabStash();
+        enum class Modes{
+            READY_SET,
+            CHECK_BOMB,
+            CLOSE_CLAW,
+            LIFT_ARM,
+            OPEN_CLAW,
+        } mode;
+        servos::ServoManager* servoManager;
     };
 }
 

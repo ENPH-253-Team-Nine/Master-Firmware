@@ -9,7 +9,7 @@ StateMachine::StateEnum currentEnumState;
 
 StateMachine::StateManager::StateManager()
 {
-    currentState = new StateMachine::States::Startup();
+    currentState = new StateMachine::States::GrabStash();
 }
 
 StateMachine::AbstractState *StateMachine::StateManager::getCurrentState()
@@ -29,7 +29,6 @@ void StateMachine::StateManager::poll()
 
 /***** Actual States *****/
 
-
 /** Startup **/
 StateMachine::States::Startup::Startup()
 {
@@ -46,7 +45,10 @@ StateMachine::AbstractState *StateMachine::States::Startup::evaluateTransition()
     }
     else
     {
-        return this;
+        // return this;
+        currentEnumState = StateMachine::StateEnum::GrabStash;
+        StateData::state = &currentEnumState;
+        return new StateMachine::States::GrabStash();
     }
 }
 
@@ -177,6 +179,24 @@ StateMachine::AbstractState *StateMachine::States::NavByIR::evaluateTransition()
 std::string StateMachine::States::NavByIR::getDebugStateName()
 {
     return "Nav By IR";
+}
+
+/** GrabStash **/
+StateMachine::States::GrabStash::GrabStash()
+{
+    this->stateEntryTime = millis();
+}
+
+StateMachine::AbstractState *StateMachine::States::GrabStash::evaluateTransition()
+{
+        currentEnumState = StateMachine::StateEnum::GrabStash;
+        StateData::state = &currentEnumState;
+         return this;
+}
+
+std::string StateMachine::States::GrabStash::getDebugStateName()
+{
+    return "Grab Stash";
 }
 
 /** Error **/

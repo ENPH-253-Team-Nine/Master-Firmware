@@ -34,7 +34,7 @@ void setup()
   motorManager->setup();
   sensorManager->setup();
   servoManager->setup();
-
+  armManager->setup(servoManager);
 
   Serial.begin(9600);
   lastrun = millis();
@@ -45,11 +45,11 @@ void loop()
   sensorManager->poll();
   if (*StateData::state == StateMachine::StateEnum::Error)
   {
-    StateData::clawServoPos = 180;
+   // StateData::clawServoPos = 180;
   }
   else
   {
-    StateData::clawServoPos = 0;
+    //StateData::clawServoPos = 0;
   }
 
   stateManager->poll();
