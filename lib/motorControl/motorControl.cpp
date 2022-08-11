@@ -78,8 +78,8 @@ void MotorManager::setup(){
 void MotorManager::poll(){
 
     int16_t rightSpeed, leftSpeed;
-    leftSpeed = StateData::persistent::storedSettings.manualMotorSpeed + StateData::driveSteer;
-    rightSpeed = StateData::persistent::storedSettings.manualMotorSpeed - StateData::driveSteer;
+    leftSpeed = StateData::driveSpeed + StateData::driveSteer;
+    rightSpeed = StateData::driveSpeed - StateData::driveSteer;
 
 
     if(leftSpeed>INT8_MAX){

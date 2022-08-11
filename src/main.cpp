@@ -61,7 +61,7 @@ void setup()
   StateData::persistent::storedSettings.lineCorCoeff = 3;
   StateData::persistent::storedSettings.manualMotorSpeed = 70;
   StateData::persistent::storedSettings.preRampTime = 2000;
-  StateData::persistent::storedSettings.onRampTime = 3000;
+  StateData::persistent::storedSettings.onRampTime = 8000;
   StateData::persistent::storedSettings.postRampTime = 1000;
   StateData::persistent::storedSettings.seekLineSpeed = 60;
   StateData::persistent::storedSettings.seekLineSteer = 10;
@@ -91,13 +91,13 @@ void loop()
   //servoManager->poll();
   // hmiManager->poll();
 
-  if (millis() - lastSerial >= 1000) {
+  if (millis() - lastSerial >= 200) {
     Serial.print("State: "); Serial.println(StateData::debugStateName.c_str());
     Serial.print("LF L/R: "); 
     Serial.print(StateData::reflectances::lineLeft); Serial.print(", ");
     Serial.print(StateData::reflectances::lineRight); Serial.print(", ");
     Serial.print("Corr: "); Serial.print(StateData::reflectances::correction); Serial.print(", ");
-    // Serial.print("Speed: "); Serial.print(StateData::driveSpeed); Serial.print(", ");
+    Serial.print("Speed: "); Serial.print(StateData::driveSpeed); Serial.print(", ");
     Serial.print("Steer: "); Serial.print(StateData::driveSteer); Serial.print(", ");
     Serial.print("Motors L/R: "); Serial.print(StateData::leftMotorSpeed); Serial.print(", ");
     Serial.print(StateData::rightMotorSpeed); Serial.print(", ");

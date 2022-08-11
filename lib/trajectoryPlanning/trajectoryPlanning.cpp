@@ -37,7 +37,7 @@ void TrajectoryManager::poll()
         // presumably that means enabling more states.
     }
 
-    // StateData::driveSpeed = speed;
+    StateData::driveSpeed = speed;
     StateData::driveSteer = steer;
 }
 
@@ -156,7 +156,7 @@ void TrajectoryManager::navigateByLineRamp()
     StateData::reflectances::lasterror = error;
     int correction = p + d;
 
-    speed = StateData::persistent::storedSettings.manualMotorSpeed + 10;
+    speed = StateData::persistent::storedSettings.manualMotorSpeed + 30;
 
     int8_t _steer = (float)speed * (float)correction / ((float)StateData::persistent::storedSettings.lineCScale);
     StateData::reflectances::correction = correction;

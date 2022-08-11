@@ -9,9 +9,11 @@ StateMachine::StateEnum currentEnumState;
 
 StateMachine::StateManager::StateManager()
 {
-    // currentState = new StateMachine::States::Startup();
-    currentState = new StateMachine::States::NavByLine();
-
+    currentState = new StateMachine::States::Startup();
+    // currentState = new StateMachine::States::NavByLine();
+    StateMachine::StateEnum newStateEnumValue = StateMachine::StateEnum::Startup;
+    // StateMachine::StateEnum newStateEnumValue = StateMachine::StateEnum::NavByLine;
+    StateData::state = &newStateEnumValue;
 }
 
 StateMachine::AbstractState *StateMachine::StateManager::getCurrentState()
@@ -42,13 +44,13 @@ StateMachine::States::Startup::Startup()
 
 StateMachine::AbstractState *StateMachine::States::Startup::evaluateTransition()
 {
-    // if (millis() >= stateEntryTime + 5000 /*just some random constant*/)
-    // {
-    //     StateMachine::States::Error* newState = new StateMachine::States::Error();
-    //     *StateData::state = StateMachine::StateEnum::Error;
-    //     StateData::debugStateName = newState->getDebugStateName();
-    //     return newState;
-    // }
+    if (millis() >= stateEntryTime + 000 /*just some random constant*/)
+    {
+        StateMachine::AbstractState* newState = new StateMachine::States::NavByLine();
+        *StateData::state = StateMachine::StateEnum::NavByLine;
+        StateData::debugStateName = newState->getDebugStateName();
+        return newState;
+    }
     // else
     {
         *StateData::state = StateMachine::StateEnum::Startup;
