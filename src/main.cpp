@@ -54,8 +54,8 @@ void setup()
   //pinMode(PB3, OUTPUT);
 
   StateData::persistent::storedSettings.lineKP = 5;
-  StateData::persistent::storedSettings.lineKD = 1;
-  StateData::persistent::storedSettings.lineCScale = 10;
+  StateData::persistent::storedSettings.lineKD = 5;
+  StateData::persistent::storedSettings.lineCScale = 50;
   StateData::persistent::storedSettings.lineLThresh = 420;
   StateData::persistent::storedSettings.lineRThresh = 85;
   StateData::persistent::storedSettings.lineCorCoeff = 3;
