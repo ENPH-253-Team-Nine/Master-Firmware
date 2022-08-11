@@ -184,7 +184,7 @@ void Encoder::EncoderPoll::read(){
 
 SensorManager::SensorManager(){
     polledSensors[polledSensorEnum::IR_STRENGTH_LEFT] = new IRFrequency(&StateData::IR::leftIRStrength,PB1);
-    polledSensors[polledSensorEnum::IR_STRENGTH_RIGHT] = new IRFrequency(&StateData::IR::rightIRStrength,0);
+    polledSensors[polledSensorEnum::IR_STRENGTH_RIGHT] = new IRFrequency(&StateData::IR::rightIRStrength,PB1);
     polledSensors[polledSensorEnum::CLAW_LIMIT_SWITCH] = new Switch(&StateData::switches::clawLimitSwitch, PB13);
     polledSensors[polledSensorEnum::CLAW_REFLECT] = new ReflectanceSensor(&StateData::reflectances::clawReflectance,PA5);
     polledSensors[polledSensorEnum::CLAW_HALL_EFFECT] = new HallSensor(&StateData::magnets::clawHall,PA7);
