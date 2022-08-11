@@ -212,8 +212,8 @@ void SensorManager::poll(){
     }
     
     if(millis()>=lastReadingTime+30){
-        StateData::sonar::sonarDistance_cm = sonarR->ping_cm(20);
-        Serial.println(StateData::sonar::sonarDistance_cm);
+        StateData::sonar::sonarDistance_cm = sonarR->ping_cm(10);
+        //Serial.println(StateData::sonar::sonarDistance_cm);
         lastReadingTime = millis();
     }
 

@@ -59,8 +59,8 @@ void DriveMotor::updatePWMs(){
 
 
 MotorManager::MotorManager(){
-    motors[DRIVE_LEFT] = new DriveMotor(PA_9, PA_1);
-    motors[DRIVE_RIGHT] = new DriveMotor(PA_0, PA_10);
+    motors[DRIVE_LEFT] = new DriveMotor(PB_9, PA_1); // PB9was PA9
+    motors[DRIVE_RIGHT] = new DriveMotor(PA_0, PB_8); // PB8 was PA10
 }
 
 MotorManager::~MotorManager(){

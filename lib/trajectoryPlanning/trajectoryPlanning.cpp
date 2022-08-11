@@ -35,6 +35,9 @@ void TrajectoryManager::poll()
         break;
         // add more cases as neccesary.
         // presumably that means enabling more states.
+    case StateMachine::StateEnum::TurnRToTreasure:
+        turnRightToTreasure();
+        break;
     }
 
     StateData::driveSpeed = speed;

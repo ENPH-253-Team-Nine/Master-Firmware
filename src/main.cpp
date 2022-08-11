@@ -32,7 +32,7 @@ sensors::SensorManager *sensorManager = new sensors::SensorManager();
 bridge::BridgeManager *bridgeManager = new bridge::BridgeManager();
 
 arm::ArmManager *armManager = new arm::ArmManager();
-//servos::ServoManager *servoManager = new servos::ServoManager();
+servos::ServoManager *servoManager = new servos::ServoManager();
 // HMI::HMIManager* hmiManager = new HMI::HMIManager();
 
 void setup()
@@ -41,7 +41,7 @@ void setup()
   motorManager->setup();
   // hmiManager->setup(); //hmi manager must be setup before sensor manager for reasons
   sensorManager->setup();
-  //servoManager->setup();
+  servoManager->setup();
   trajectoryManager->setup();
 
   // StateData::persistent::getFromMemory();
@@ -91,17 +91,17 @@ void loop()
   //servoManager->poll();
   // hmiManager->poll();
 
-  // if (millis() - lastSerial >= 200) {
-  //   Serial.print("State: "); Serial.println(StateData::debugStateName.c_str());
-  //   Serial.print("LF L/R: "); 
-  //   Serial.print(StateData::reflectances::lineLeft); Serial.print(", ");
-  //   Serial.print(StateData::reflectances::lineRight); Serial.print(", ");
-  //   Serial.print("Corr: "); Serial.print(StateData::reflectances::correction); Serial.print(", ");
-  //   Serial.print("Speed: "); Serial.print(StateData::driveSpeed); Serial.print(", ");
-  //   Serial.print("Steer: "); Serial.print(StateData::driveSteer); Serial.print(", ");
-  //   Serial.print("Motors L/R: "); Serial.print(StateData::leftMotorSpeed); Serial.print(", ");
-  //   Serial.print(StateData::rightMotorSpeed); Serial.print(", ");
-  //   Serial.println();
-  //   lastSerial = millis();
-  // }
+  if (millis() - lastSerial >= 200) {
+    Serial.print("State: "); Serial.println(StateData::debugStateName.c_str());
+    Serial.print("LF L/R: "); 
+    Serial.print(StateData::reflectances::lineLeft); Serial.print(", ");
+    Serial.print(StateData::reflectances::lineRight); Serial.print(", ");
+    Serial.print("Corr: "); Serial.print(StateData::reflectances::correction); Serial.print(", ");
+    Serial.print("Speed: "); Serial.print(StateData::driveSpeed); Serial.print(", ");
+    Serial.print("Steer: "); Serial.print(StateData::driveSteer); Serial.print(", ");
+    Serial.print("Motors L/R: "); Serial.print(StateData::leftMotorSpeed); Serial.print(", ");
+    Serial.print(StateData::rightMotorSpeed); Serial.print(", ");
+    Serial.println();
+    lastSerial = millis();
+  }
 }
