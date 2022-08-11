@@ -73,20 +73,20 @@ void setup()
 void loop()
 {
   sensorManager->poll();
-  if (*StateData::state == StateMachine::StateEnum::Error)
-  {
-    StateData::clawServoPos = 180;
-  }
-  else
-  {
-    StateData::clawServoPos = 0;
-  }
+  // if (*StateData::state == StateMachine::StateEnum::Error)
+  // {
+  //   StateData::clawServoPos = 180;
+  // }
+  // else
+  // {
+  //   StateData::clawServoPos = 0;
+  // }
   
   stateManager->poll();
   lightManager->poll();
   motorManager->poll();
   trajectoryManager->poll();
-  bridgeManager->poll();
+  //bridgeManager->poll();
   armManager->poll();
   //servoManager->poll();
   // hmiManager->poll();

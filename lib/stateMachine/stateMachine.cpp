@@ -129,7 +129,7 @@ StateMachine::States::SeekTreasure::SeekTreasure()
 StateMachine::AbstractState *StateMachine::States::SeekTreasure::evaluateTransition()
 {
     //PLACEHOLDER
-    if (StateData::sonar::sonarDistance_cm<=20 /* arbitrary constant, change later to when in position for claw*/)
+    if (StateData::sonar::sonarDistance_cm<=20  && StateData::sonar::sonarDistance_cm !=0/* arbitrary constant, change later to when in position for claw*/)
     {
         *StateData::state = StateMachine::StateEnum::TurnRToTreasure;
         StateMachine::AbstractState* newState = new StateMachine::States::TurnRToTreasure();

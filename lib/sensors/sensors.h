@@ -51,7 +51,7 @@ namespace sensors
         int echoPin;
         long int pingTimer;
         int startupDelay_ms = 75;
-        int pingSpeed_ms = 50;
+        int pingSpeed_ms = 500;
         NewPing* sonar;
     };
 
@@ -139,6 +139,9 @@ namespace sensors
         void poll();
 
     private:
+        NewPing* sonarR;
+        //NewPing sonarRR;
+        long int lastReadingTime;
         enum polledSensorEnum{
             IR_STRENGTH_LEFT,
             IR_STRENGTH_RIGHT,
@@ -147,7 +150,6 @@ namespace sensors
             CLAW_HALL_EFFECT,
             LINE_LEFT,
             LINE_RIGHT,
-            SONAR,
             _LENGTH_POLLED
         };
 
