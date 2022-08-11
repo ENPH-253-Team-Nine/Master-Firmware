@@ -1,6 +1,7 @@
 #include "stateData.h"
 
-StateMachine::StateEnum* StateData::state;
+StateMachine::StateEnum stateEnumValue;
+StateMachine::StateEnum* StateData::state = &stateEnumValue;
 
 std::string StateData::debugStateName;
 

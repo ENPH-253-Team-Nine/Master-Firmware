@@ -11,9 +11,9 @@ StateMachine::StateManager::StateManager()
 {
     currentState = new StateMachine::States::Startup();
     // currentState = new StateMachine::States::NavByLine();
-    StateMachine::StateEnum newStateEnumValue = StateMachine::StateEnum::Startup;
+    //StateMachine::StateEnum newStateEnumValue = StateMachine::StateEnum::Startup;
     // StateMachine::StateEnum newStateEnumValue = StateMachine::StateEnum::NavByLine;
-    StateData::state = &newStateEnumValue;
+    *StateData::state = StateMachine::StateEnum::Startup;
 }
 
 StateMachine::AbstractState *StateMachine::StateManager::getCurrentState()
