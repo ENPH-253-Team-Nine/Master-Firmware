@@ -19,7 +19,7 @@ void TrajectoryManager::poll()
         allStop();
         break;
     case StateMachine::StateEnum::NavByLineRamp:
-        navigateByLineRamp();
+        allStop();
         break;
     case StateMachine::StateEnum::NavByLinePost:
         navigateByLine();

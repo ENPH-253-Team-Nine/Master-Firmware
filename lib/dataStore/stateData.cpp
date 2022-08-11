@@ -42,8 +42,8 @@ uint8_t StateData::elbowServoPos;
 uint8_t StateData::clawServoPos;   
 
 
-int StateData::treasureRSpeed = 60;
-int StateData::treasureRSteer = 2;
+int StateData::treasureRSpeed = 55;
+int StateData::treasureRSteer = 5;
 
 int8_t StateData::HMI::settingSelectIndex;
 int8_t StateData::HMI::settingLevel;
