@@ -17,7 +17,7 @@ StateMachine::StateManager *stateManager = new StateMachine::StateManager();
 
 lights::LightManager *lightManager = new lights::LightManager();
 
-motors::MotorManager *motorManager = new motors::MotorManager();
+// motors::MotorManager *motorManager = new motors::MotorManager();
 
 trajectory::TrajectoryManager *trajectoryManager = new trajectory::TrajectoryManager();
 
@@ -31,10 +31,10 @@ servos::ServoManager *servoManager = new servos::ServoManager();
 void setup()
 {
   lightManager->setup();
-  motorManager->setup();
+  // motorManager->setup();
   sensorManager->setup();
   servoManager->setup();
-  armManager->setup(servoManager);
+  armManager->setup(servoManager, sensorManager);
 
   Serial.begin(9600);
   lastrun = millis();
@@ -54,7 +54,7 @@ void loop()
 
   stateManager->poll();
   lightManager->poll();
-  motorManager->poll();
+  // motorManager->poll();
   trajectoryManager->poll();
   bridgeManager->poll();
   armManager->poll();

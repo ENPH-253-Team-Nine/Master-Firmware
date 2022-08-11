@@ -5,6 +5,7 @@
 #include <stateMachine.h>
 #include <sensors.h>
 #include <servoControl.h>
+#include <sensors.h>
 
 namespace arm
 {
@@ -13,7 +14,7 @@ namespace arm
     public:
         //just using the default implicit constructor
         void poll();
-        void setup(servos::ServoManager *servoManager);
+        void setup(servos::ServoManager *servoManager,sensors::SensorManager* sensorManager);
 
     private:
         void deployArm();
@@ -31,6 +32,7 @@ namespace arm
             OPEN_CLAW,
         } mode;
         servos::ServoManager* servoManager;
+        sensors::SensorManager* sensorManager;
     };
 }
 

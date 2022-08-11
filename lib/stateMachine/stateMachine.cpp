@@ -181,11 +181,27 @@ std::string StateMachine::States::NavByIR::getDebugStateName()
     return "Nav By IR";
 }
 
+StateMachine::States::AlignTreasure::AlignTreasure()
+{
+    this->stateEntryTime = millis();
+}
+
+StateMachine::AbstractState *StateMachine::States::AlignTreasure::evaluateTransition()
+{
+    if (StateData::reflectances::clawReflectance > 40) {
+        currentEnumState = StateMachine::StateEnum::AlignTreasure;
+        StateData::state = &currentEnumState;
+         return this;
+    }     
+}
+
 /** GrabStash **/
 StateMachine::States::GrabStash::GrabStash()
 {
     this->stateEntryTime = millis();
 }
+
+
 
 StateMachine::AbstractState *StateMachine::States::GrabStash::evaluateTransition()
 {

@@ -16,8 +16,8 @@ void TrajectoryManager::poll(){
         case StateMachine::StateEnum::Startup:
             allStop();
             break;
-        //add more cases as neccesary. 
-        //presumably that means enabling more states.
+        case StateMachine::StateEnum::AlignTreasure:    
+            alignTreasure();
 
     }
 
@@ -33,5 +33,10 @@ void TrajectoryManager::poll(){
 
 void TrajectoryManager::allStop(){
     speed = 0;
+    steer = 0;
+}
+
+void TrajectoryManager::alignTreasure(){
+    speed = 55;
     steer = 0;
 }

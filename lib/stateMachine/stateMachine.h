@@ -85,6 +85,16 @@ namespace StateMachine
             long int stateEntryTime;
         };
 
+        class AlignTreasure : public AbstractState
+        {
+            AbstractState *evaluateTransition();
+            std::string getDebugStateName();
+            AlignTreasure();
+
+        private:
+            long int stateEntryTime;
+        };
+
         class GrabStash : public AbstractState
         {
         public:
@@ -159,6 +169,7 @@ namespace StateMachine
         Party,*/
         TreasureApproach,
         TreasureCapture,
+        AlignTreasure,
         GrabStash, 
         Error
     };
